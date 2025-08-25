@@ -52,6 +52,7 @@
       border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
+      user-select: none;
     }
     .produtos {
       display: none;
@@ -99,7 +100,7 @@
     <canvas id="roleta" width="300" height="300"></canvas>
   </div>
 
-  <button id="botaoGirar" onclick="girarRoleta()">Girar Roleta</button>
+  <button id="botaoGirar">Girar Roleta</button>
 
   <div class="produtos" id="produtos">
     <h2>🎉 Você ganhou 45% OFF! Escolha seu modelo:</h2>
@@ -191,35 +192,27 @@
       ctx.restore();
     }
 
-    // Inicializa roleta na posição zero
     desenharRoleta();
 
     const audio = document.getElementById('roleta-audio');
     const botao = document.getElementById('botaoGirar');
     const produtos = document.getElementById('produtos');
 
-    // Função para girar e parar no 45%
-    function girarRoleta() {
+    botao.addEventListener('click', () => {
       botao.disabled = true;
-      botao.innerText = 'Girando...';
+      botao.textContent = 'Girando...';
+      produtos.style.display = 'none';
+      audio.currentTime = 0;
       audio.play();
 
-      // O setor 45% é o índice 2
-      // Cada setor tem 90 graus (PI/2 radianos)
-      // Para parar no setor 45%, rodamos a roleta para que ele fique apontando para cima (no topo)
-      // Considerando que a roleta gira no sentido horário, para o índice 2, a rotação em radianos será:
-      // - 2 setores * 90 graus = 180 graus = Math.PI radianos
-      // Mas o canvas rotaciona no sentido anti-horário, então vamos ajustar o cálculo para que pare no lugar certo
-
-      // Vamos definir a rotação total em radianos para que faça 5 voltas completas + pare no setor 45%
-      // Voltamos no sentido anti-horário então rotacao = 5*2PI - (angulo do setor alvo)
-      const voltas = 5;
+      // 45% é índice 2
+      const voltas = 6;
       const anguloPorSetor = 2 * Math.PI / totalSetores;
-      const anguloAlvo = 2 * anguloPorSetor; // índice 2 para 45%
+      const anguloAlvo = 2 * anguloPorSetor;
       const rotacaoFinal = voltas * 2 * Math.PI - anguloAlvo;
 
       let inicio = null;
-      const duracao = 3500; // duração da animação em ms
+      const duracao = 4000;
 
       function animar(timestamp) {
         if (!inicio) inicio = timestamp;
@@ -227,23 +220,25 @@
         let progresso = tempoPassado / duracao;
         if (progresso > 1) progresso = 1;
 
-        // Efeito ease out
+        // Ease out cubic
         const easeOut = 1 - Math.pow(1 - progresso, 3);
-
         const anguloAtual = easeOut * rotacaoFinal;
+
         desenharRoleta(anguloAtual);
 
         if (progresso < 1) {
           requestAnimationFrame(animar);
         } else {
+          botao.disabled = false;
           botao.style.display = 'none';
           produtos.style.display = 'block';
+          botao.textContent = 'Girar Roleta';
         }
       }
       requestAnimationFrame(animar);
-    }
+    });
 
-    // Cronômetro de 5 minutos
+    // Cronômetro regressivo 5 minutos
     let tempo = 300;
     const countdownEl = document.getElementById('countdown');
     const intervalo = setInterval(() => {
