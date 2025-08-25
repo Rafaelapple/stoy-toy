@@ -1,273 +1,43 @@
-<!DOCTYPE html>
-<html lang="pt-BR" >
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Roleta Apple Watch - 45% OFF</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f9f9f9;
-      text-align: center;
-    }
-    h1 {
-      background-color: #000;
-      color: #fff;
-      padding: 20px;
-      margin: 0;
-    }
-    .timer {
-      font-size: 18px;
-      margin: 20px;
-      color: red;
-    }
-    /* Seta fixada apontando pra cima */
-    .ponteiro {
-      width: 0;
-      height: 0;
-      border-left: 15px solid transparent;
-      border-right: 15px solid transparent;
-      border-bottom: 30px solid black;
-      margin: 20px auto 10px auto;
-      position: relative;
-      top: -10px;
-      z-index: 10;
-    }
-    .roleta-container {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      margin: 0 auto;
-    }
-    canvas#roleta {
-      border-radius: 50%;
-      border: 10px solid #333;
-      display: block;
-      margin: auto;
-      background: #fff;
-      z-index: 1;
-      position: relative;
-    }
-    button {
-      margin: 20px auto;
-      padding: 12px 24px;
-      background-color: #0070f3;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      user-select: none;
-    }
-    .produtos {
-      display: none;
-      margin-top: 40px;
-    }
-    .produto {
-      background-color: #fff;
-      max-width: 400px;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .produto img {
-      width: 100%;
-      border-radius: 8px;
-    }
-    .preco-antigo {
-      text-decoration: line-through;
-      color: red;
-    }
-    .preco-novo {
-      font-size: 22px;
-      color: green;
-      font-weight: bold;
-    }
-    .botao-comprar {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #0070f3;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-  </style>
-</head>
-<body>
+<div class="produtos" id="produtos">
+  <h2>🎉 Você ganhou 45% OFF! Escolha seu modelo:</h2>
 
-  <h1>🎉 Gire a Roleta e Ganhe 45% de Desconto 🎁</h1>
-  <div class="timer" id="timer">Oferta acaba em: <span id="countdown">05:00</span></div>
-
-  <div class="ponteiro"></div>
-  <div class="roleta-container">
-    <canvas id="roleta" width="300" height="300"></canvas>
+  <div class="produto">
+    <img src="https://via.placeholder.com/400x250?text=Apple+Watch+Series+2" alt="Series 2" />
+    <h3>Apple Watch Series 2</h3>
+    <p class="preco-antigo">R$ 1.500</p>
+    <p class="preco-novo">R$ 825</p>
+    <a class="botao-comprar" href="https://go.perfectpay.com.br/PPU38CPUQMK" target="_blank">Comprar Agora</a>
   </div>
 
-  <button id="botaoGirar">Girar Roleta</button>
-
-  <div class="produtos" id="produtos">
-    <h2>🎉 Você ganhou 45% OFF! Escolha seu modelo:</h2>
-
-    <div class="produto">
-      <img src="https://via.placeholder.com/400x250?text=Apple+Watch+Series+2" alt="Series 2" />
-      <h3>Apple Watch Series 2</h3>
-      <p class="preco-antigo">R$ 1.500</p>
-      <p class="preco-novo">R$ 825</p>
-      <a class="botao-comprar" href="https://checkout.perfectpay.com.br/?produto=series2&valor=82500" target="_blank">Comprar Agora</a>
-    </div>
-
-    <div class="produto">
-      <img src="https://via.placeholder.com/400x250?text=Apple+Watch+Series+3" alt="Series 3" />
-      <h3>Apple Watch Series 3</h3>
-      <p class="preco-antigo">R$ 1.700</p>
-      <p class="preco-novo">R$ 935</p>
-      <a class="botao-comprar" href="https://checkout.perfectpay.com.br/?produto=series3&valor=93500" target="_blank">Comprar Agora</a>
-    </div>
-
-    <div class="produto">
-      <img src="https://via.placeholder.com/400x250?text=Apple+Watch+SE" alt="SE" />
-      <h3>Apple Watch SE</h3>
-      <p class="preco-antigo">R$ 2.000</p>
-      <p class="preco-novo">R$ 1.100</p>
-      <a class="botao-comprar" href="https://checkout.perfectpay.com.br/?produto=se&valor=110000" target="_blank">Comprar Agora</a>
-    </div>
-
-    <div class="produto">
-      <img src="https://via.placeholder.com/400x250?text=Apple+Watch+Series+5" alt="Series 5" />
-      <h3>Apple Watch Series 5</h3>
-      <p class="preco-antigo">R$ 2.500</p>
-      <p class="preco-novo">R$ 1.375</p>
-      <a class="botao-comprar" href="https://checkout.perfectpay.com.br/?produto=series5&valor=137500" target="_blank">Comprar Agora</a>
-    </div>
-
-    <div class="produto">
-      <img src="https://via.placeholder.com/400x250?text=Apple+Watch+Series+6" alt="Series 6" />
-      <h3>Apple Watch Series 6</h3>
-      <p class="preco-antigo">R$ 3.000</p>
-      <p class="preco-novo">R$ 1.650</p>
-      <a class="botao-comprar" href="https://checkout.perfectpay.com.br/?produto=series6&valor=165000" target="_blank">Comprar Agora</a>
-    </div>
+  <div class="produto">
+    <img src="https://via.placeholder.com/400x250?text=Apple+Watch+Series+3" alt="Series 3" />
+    <h3>Apple Watch Series 3</h3>
+    <p class="preco-antigo">R$ 1.700</p>
+    <p class="preco-novo">R$ 935</p>
+    <a class="botao-comprar" href="https://go.perfectpay.com.br/PPU38CPUQN2" target="_blank">Comprar Agora</a>
   </div>
 
-  <audio id="roleta-audio" src="https://cdn.pixabay.com/audio/2022/10/20/audio_7dd9019e92.mp3" preload="auto"></audio>
+  <div class="produto">
+    <img src="https://via.placeholder.com/400x250?text=Apple+Watch+SE" alt="SE" />
+    <h3>Apple Watch SE</h3>
+    <p class="preco-antigo">R$ 2.000</p>
+    <p class="preco-novo">R$ 1.100</p>
+    <a class="botao-comprar" href="https://go.perfectpay.com.br/PPU38CPUQNC" target="_blank">Comprar Agora</a>
+  </div>
 
-  <script>
-    const canvas = document.getElementById('roleta');
-    const ctx = canvas.getContext('2d');
-    const setores = [
-      { texto: '05%', cor: '#ffd700' },  // amarelo
-      { texto: '25%', cor: '#00c853' },  // verde
-      { texto: '45%', cor: '#ff5252' },  // vermelho (nosso alvo)
-      { texto: '75%', cor: '#2979ff' }   // azul
-    ];
-    const totalSetores = setores.length;
-    const centroX = canvas.width / 2;
-    const centroY = canvas.height / 2;
-    const raio = 140;
+  <div class="produto">
+    <img src="https://via.placeholder.com/400x250?text=Apple+Watch+Series+5" alt="Series 5" />
+    <h3>Apple Watch Series 5</h3>
+    <p class="preco-antigo">R$ 2.500</p>
+    <p class="preco-novo">R$ 1.375</p>
+    <a class="botao-comprar" href="https://go.perfectpay.com.br/PPU38CPUQNI" target="_blank">Comprar Agora</a>
+  </div>
 
-    function desenharRoleta(rotacao = 0) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.save();
-      ctx.translate(centroX, centroY);
-      ctx.rotate(rotacao);
-      const anguloSetor = (2 * Math.PI) / totalSetores;
-
-      for(let i = 0; i < totalSetores; i++) {
-        // Desenha setor colorido
-        ctx.beginPath();
-        ctx.fillStyle = setores[i].cor;
-        ctx.moveTo(0, 0);
-        ctx.arc(0, 0, raio, i * anguloSetor, (i + 1) * anguloSetor);
-        ctx.closePath();
-        ctx.fill();
-
-        // Desenha texto do setor
-        ctx.save();
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 22px Arial';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        const anguloTexto = i * anguloSetor + anguloSetor / 2;
-        ctx.rotate(anguloTexto);
-        ctx.fillText(setores[i].texto, raio / 2, 0);
-        ctx.restore();
-      }
-      ctx.restore();
-    }
-
-    desenharRoleta();
-
-    const audio = document.getElementById('roleta-audio');
-    const botao = document.getElementById('botaoGirar');
-    const produtos = document.getElementById('produtos');
-
-    botao.addEventListener('click', () => {
-      botao.disabled = true;
-      botao.textContent = 'Girando...';
-      produtos.style.display = 'none';
-      audio.currentTime = 0;
-      audio.play();
-
-      const voltas = 6;
-      const anguloSetor = (2 * Math.PI) / totalSetores;
-
-      // Como a seta aponta para o topo (0 rad), precisamos ajustar
-      // O setor alvo é índice 2 (45%)
-      // O ângulo para setor 2 é anguloSetor * 2 + metade do setor para centralizar
-      // Mas como giramos a roleta (em sentido horário), para alinhar o setor 2 com o topo,
-      // precisamos girar no sentido anti-horário essa quantidade.
-
-      const anguloAlvo = (3 * anguloSetor) - (anguloSetor / 2); // ajuste para alinhar texto no topo
-
-      // rotacao final deve ser multiplos de 2PI + anguloAlvo
-      // Girando sentido horário, rotacao é positiva
-
-      const rotacaoFinal = voltas * 2 * Math.PI + anguloAlvo;
-
-      let inicio = null;
-      const duracao = 4000;
-
-      function animar(timestamp) {
-        if (!inicio) inicio = timestamp;
-        const tempoPassado = timestamp - inicio;
-        let progresso = tempoPassado / duracao;
-        if (progresso > 1) progresso = 1;
-
-        // Ease out cubic
-        const easeOut = 1 - Math.pow(1 - progresso, 3);
-        const anguloAtual = easeOut * rotacaoFinal;
-
-        desenharRoleta(anguloAtual);
-
-        if (progresso < 1) {
-          requestAnimationFrame(animar);
-        } else {
-          botao.disabled = false;
-          botao.style.display = 'none';
-          produtos.style.display = 'block';
-          botao.textContent = 'Girar Roleta';
-        }
-      }
-      requestAnimationFrame(animar);
-    });
-
-    // Cronômetro regressivo 5 minutos
-    let tempo = 300;
-    const countdownEl = document.getElementById('countdown');
-    const intervalo = setInterval(() => {
-      const min = String(Math.floor(tempo / 60)).padStart(2, '0');
-      const seg = String(tempo % 60).padStart(2, '0');
-      countdownEl.textContent = `${min}:${seg}`;
-      tempo--;
-      if (tempo < 0) {
-        clearInterval(intervalo);
-        countdownEl.textContent = "Oferta encerrada!";
-      }
-    }, 1000);
-  </script>
-
-</body>
-</html>
+  <div class="produto">
+    <img src="https://via.placeholder.com/400x250?text=Apple+Watch+Series+6" alt="Series 6" />
+    <h3>Apple Watch Series 6</h3>
+    <p class="preco-antigo">R$ 3.000</p>
+    <p class="preco-novo">R$ 1.650</p>
+    <a class="botao-comprar" href="https://go.perfectpay.com.br/PPU38CPUQNL" target="_blank">Comprar Agora</a>
+  </div>
+</div>
