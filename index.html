@@ -219,4 +219,44 @@
       const rotacaoFinal = voltas * 2 * Math.PI - anguloAlvo;
 
       let inicio = null;
-      const duracao
+      const duracao = 3500; // duração da animação em ms
+
+      function animar(timestamp) {
+        if (!inicio) inicio = timestamp;
+        const tempoPassado = timestamp - inicio;
+        let progresso = tempoPassado / duracao;
+        if (progresso > 1) progresso = 1;
+
+        // Efeito ease out
+        const easeOut = 1 - Math.pow(1 - progresso, 3);
+
+        const anguloAtual = easeOut * rotacaoFinal;
+        desenharRoleta(anguloAtual);
+
+        if (progresso < 1) {
+          requestAnimationFrame(animar);
+        } else {
+          botao.style.display = 'none';
+          produtos.style.display = 'block';
+        }
+      }
+      requestAnimationFrame(animar);
+    }
+
+    // Cronômetro de 5 minutos
+    let tempo = 300;
+    const countdownEl = document.getElementById('countdown');
+    const intervalo = setInterval(() => {
+      const min = String(Math.floor(tempo / 60)).padStart(2, '0');
+      const seg = String(tempo % 60).padStart(2, '0');
+      countdownEl.textContent = `${min}:${seg}`;
+      tempo--;
+      if (tempo < 0) {
+        clearInterval(intervalo);
+        countdownEl.textContent = "Oferta encerrada!";
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
