@@ -22,13 +22,17 @@
       margin: 20px;
       color: red;
     }
+    /* Seta fixada apontando pra cima */
     .ponteiro {
       width: 0;
       height: 0;
       border-left: 15px solid transparent;
       border-right: 15px solid transparent;
-      border-bottom: 25px solid black;
-      margin: 20px auto;
+      border-bottom: 30px solid black;
+      margin: 20px auto 10px auto;
+      position: relative;
+      top: -10px;
+      z-index: 10;
     }
     .roleta-container {
       position: relative;
@@ -42,6 +46,8 @@
       display: block;
       margin: auto;
       background: #fff;
+      z-index: 1;
+      position: relative;
     }
     button {
       margin: 20px auto;
@@ -181,12 +187,12 @@
         // Desenha texto do setor
         ctx.save();
         ctx.fillStyle = '#fff';
-        ctx.font = 'bold 20px Arial';
-        ctx.textAlign = 'right';
+        ctx.font = 'bold 22px Arial';
+        ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         const anguloTexto = i * anguloSetor + anguloSetor / 2;
         ctx.rotate(anguloTexto);
-        ctx.fillText(setores[i].texto, raio - 10, 0);
+        ctx.fillText(setores[i].texto, raio / 2, 0);
         ctx.restore();
       }
       ctx.restore();
@@ -205,11 +211,21 @@
       audio.currentTime = 0;
       audio.play();
 
-      // 45% é índice 2
       const voltas = 6;
-      const anguloPorSetor = 2 * Math.PI / totalSetores;
-      const anguloAlvo = 2 * anguloPorSetor;
-      const rotacaoFinal = voltas * 2 * Math.PI - anguloAlvo;
+      const anguloSetor = (2 * Math.PI) / totalSetores;
+
+      // Como a seta aponta para o topo (0 rad), precisamos ajustar
+      // O setor alvo é índice 2 (45%)
+      // O ângulo para setor 2 é anguloSetor * 2 + metade do setor para centralizar
+      // Mas como giramos a roleta (em sentido horário), para alinhar o setor 2 com o topo,
+      // precisamos girar no sentido anti-horário essa quantidade.
+
+      const anguloAlvo = (3 * anguloSetor) - (anguloSetor / 2); // ajuste para alinhar texto no topo
+
+      // rotacao final deve ser multiplos de 2PI + anguloAlvo
+      // Girando sentido horário, rotacao é positiva
+
+      const rotacaoFinal = voltas * 2 * Math.PI + anguloAlvo;
 
       let inicio = null;
       const duracao = 4000;
