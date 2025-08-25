@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" >
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,20 +11,17 @@
       background: #f9f9f9;
       text-align: center;
     }
-
     h1 {
       background-color: #000;
       color: #fff;
       padding: 20px;
       margin: 0;
     }
-
     .timer {
       font-size: 18px;
       margin: 20px;
       color: red;
     }
-
     .ponteiro {
       width: 0;
       height: 0;
@@ -33,59 +30,19 @@
       border-bottom: 25px solid black;
       margin: 20px auto;
     }
-
     .roleta-container {
       position: relative;
       width: 300px;
       height: 300px;
       margin: 0 auto;
     }
-
-    .roleta {
-      width: 100%;
-      height: 100%;
+    canvas#roleta {
       border-radius: 50%;
       border: 10px solid #333;
-      background: conic-gradient(
-        #ffd700 0deg 90deg,
-        #00c853 90deg 180deg,
-        #ff5252 180deg 270deg,
-        #2979ff 270deg 360deg
-      );
-      position: relative;
-      transition: transform 3s ease-out;
+      display: block;
+      margin: auto;
+      background: #fff;
     }
-
-    .roleta span {
-      position: absolute;
-      width: 50%;
-      left: 50%;
-      transform-origin: left center;
-      font-weight: bold;
-      font-size: 18px;
-      color: white;
-    }
-
-    .roleta span:nth-child(1) {
-      transform: rotate(45deg);
-      top: 18%;
-    }
-
-    .roleta span:nth-child(2) {
-      transform: rotate(135deg);
-      top: 45%;
-    }
-
-    .roleta span:nth-child(3) {
-      transform: rotate(225deg);
-      top: 70%;
-    }
-
-    .roleta span:nth-child(4) {
-      transform: rotate(315deg);
-      top: 45%;
-    }
-
     button {
       margin: 20px auto;
       padding: 12px 24px;
@@ -96,12 +53,10 @@
       font-size: 16px;
       cursor: pointer;
     }
-
     .produtos {
       display: none;
       margin-top: 40px;
     }
-
     .produto {
       background-color: #fff;
       max-width: 400px;
@@ -110,23 +65,19 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
     .produto img {
       width: 100%;
       border-radius: 8px;
     }
-
     .preco-antigo {
       text-decoration: line-through;
       color: red;
     }
-
     .preco-novo {
       font-size: 22px;
       color: green;
       font-weight: bold;
     }
-
     .botao-comprar {
       display: inline-block;
       margin-top: 10px;
@@ -145,12 +96,7 @@
 
   <div class="ponteiro"></div>
   <div class="roleta-container">
-    <div class="roleta" id="roleta">
-      <span>05%</span>
-      <span>25%</span>
-      <span>45%</span>
-      <span>75%</span>
-    </div>
+    <canvas id="roleta" width="300" height="300"></canvas>
   </div>
 
   <button id="botaoGirar" onclick="girarRoleta()">Girar Roleta</button>
@@ -202,39 +148,75 @@
   <audio id="roleta-audio" src="https://cdn.pixabay.com/audio/2022/10/20/audio_7dd9019e92.mp3" preload="auto"></audio>
 
   <script>
-    function girarRoleta() {
-      const roleta = document.getElementById('roleta');
-      const botao = document.getElementById('botaoGirar');
-      const produtos = document.getElementById('produtos');
-      const audio = document.getElementById('roleta-audio');
+    const canvas = document.getElementById('roleta');
+    const ctx = canvas.getContext('2d');
+    const setores = [
+      { texto: '05%', cor: '#ffd700' },  // amarelo
+      { texto: '25%', cor: '#00c853' },  // verde
+      { texto: '45%', cor: '#ff5252' },  // vermelho (nosso alvo)
+      { texto: '75%', cor: '#2979ff' }   // azul
+    ];
+    const totalSetores = setores.length;
+    const centroX = canvas.width / 2;
+    const centroY = canvas.height / 2;
+    const raio = 140;
 
-      const rotacaoFinal = 360 * 4 + 225; // 225° aponta para 45%
-      roleta.style.transform = `rotate(${rotacaoFinal}deg)`;
+    function desenharRoleta(rotacao = 0) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(centroX, centroY);
+      ctx.rotate(rotacao);
+      const anguloSetor = (2 * Math.PI) / totalSetores;
 
-      botao.disabled = true;
-      botao.innerText = "Girando...";
-      audio.play();
+      for(let i = 0; i < totalSetores; i++) {
+        // Desenha setor colorido
+        ctx.beginPath();
+        ctx.fillStyle = setores[i].cor;
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, raio, i * anguloSetor, (i + 1) * anguloSetor);
+        ctx.closePath();
+        ctx.fill();
 
-      setTimeout(() => {
-        produtos.style.display = 'block';
-        botao.style.display = 'none';
-      }, 3500);
+        // Desenha texto do setor
+        ctx.save();
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 20px Arial';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        const anguloTexto = i * anguloSetor + anguloSetor / 2;
+        ctx.rotate(anguloTexto);
+        ctx.fillText(setores[i].texto, raio - 10, 0);
+        ctx.restore();
+      }
+      ctx.restore();
     }
 
-    // Cronômetro de 5 minutos
-    let tempo = 300;
-    const countdownEl = document.getElementById('countdown');
-    const intervalo = setInterval(() => {
-      const min = String(Math.floor(tempo / 60)).padStart(2, '0');
-      const seg = String(tempo % 60).padStart(2, '0');
-      countdownEl.textContent = `${min}:${seg}`;
-      tempo--;
-      if (tempo < 0) {
-        clearInterval(intervalo);
-        countdownEl.textContent = "Oferta encerrada!";
-      }
-    }, 1000);
-  </script>
+    // Inicializa roleta na posição zero
+    desenharRoleta();
 
-</body>
-</html>
+    const audio = document.getElementById('roleta-audio');
+    const botao = document.getElementById('botaoGirar');
+    const produtos = document.getElementById('produtos');
+
+    // Função para girar e parar no 45%
+    function girarRoleta() {
+      botao.disabled = true;
+      botao.innerText = 'Girando...';
+      audio.play();
+
+      // O setor 45% é o índice 2
+      // Cada setor tem 90 graus (PI/2 radianos)
+      // Para parar no setor 45%, rodamos a roleta para que ele fique apontando para cima (no topo)
+      // Considerando que a roleta gira no sentido horário, para o índice 2, a rotação em radianos será:
+      // - 2 setores * 90 graus = 180 graus = Math.PI radianos
+      // Mas o canvas rotaciona no sentido anti-horário, então vamos ajustar o cálculo para que pare no lugar certo
+
+      // Vamos definir a rotação total em radianos para que faça 5 voltas completas + pare no setor 45%
+      // Voltamos no sentido anti-horário então rotacao = 5*2PI - (angulo do setor alvo)
+      const voltas = 5;
+      const anguloPorSetor = 2 * Math.PI / totalSetores;
+      const anguloAlvo = 2 * anguloPorSetor; // índice 2 para 45%
+      const rotacaoFinal = voltas * 2 * Math.PI - anguloAlvo;
+
+      let inicio = null;
+      const duracao
