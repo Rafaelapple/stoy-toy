@@ -12,7 +12,7 @@
       margin: 0;
       padding: 0;
     }
-    h1 {<h1>🎉 Gire a Roleta e Ganhe 45% de Desconto!</h1>
+    h1 {
       background-color: #000;
       color: #fff;
       padding: 20px;
@@ -87,7 +87,7 @@
 </head>
 <body>
 
-  <h1>🎉 Gire a Roleta e Ganhe 45% de Desconto!</h1>
+  <h1>🎉 GIRE A ROLETA E GANHE ATÉ 75% DE DESCONTO!</h1>
 
   <div class="ponteiro"></div>
   <div class="roleta-container">
@@ -146,7 +146,7 @@
     const setores = [
       { texto: '05%', cor: '#ffd700' },
       { texto: '25%', cor: '#00c853' },
-      { texto: '45%', cor: '#ff5252' }, // sempre vai cair aqui
+      { texto: '45%', cor: '#ff5252' }, // sempre cai aqui
       { texto: '75%', cor: '#2979ff' }
     ];
     const totalSetores = setores.length;
@@ -169,7 +169,6 @@
         ctx.closePath();
         ctx.fill();
 
-        // Texto
         ctx.save();
         ctx.fillStyle = '#fff';
         ctx.font = 'bold 18px Arial';
@@ -195,7 +194,7 @@
 
       const voltas = 5;
       const anguloSetor = (2 * Math.PI) / totalSetores;
-      const indiceAlvo = 2; // 45%
+      const indiceAlvo = 2; // índice do 45%
       const anguloAlvo = (2 * Math.PI) - (indiceAlvo * anguloSetor + anguloSetor / 2);
       const rotacaoFinal = voltas * 2 * Math.PI + anguloAlvo;
 
