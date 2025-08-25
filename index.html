@@ -132,75 +132,98 @@
   </div>
 
   <script>
-    const botao = document.getElementById('botaoGirar');
     const canvas = document.getElementById('roleta');
     const ctx = canvas.getContext('2d');
-    const produtos = document.getElementById('produtos');
-    const tituloDesconto = document.getElementById('tituloDesconto');
-    const setores = [10, 25, 50, 75];
-    const cores = ['#FFC107', '#4CAF50', '#03A9F4', '#F44336'];
-    let girando = false;
+    const setores = [
+      { texto: '05%', cor: '#ffd700' },
+      { texto: '25%', cor: '#00c853' },
+      { texto: '45%', cor: '#ff5252' }, // chance real
+      { texto: '75%', cor: '#2979ff' }  // chance real
+    ];
+    const totalSetores = setores.length;
+    const centroX = canvas.width / 2;
+    const centroY = canvas.height / 2;
+    const raio = 140;
 
-    function desenharRoleta() {
-      const anguloSetor = 2 * Math.PI / setores.length;
-      for (let i = 0; i < setores.length; i++) {
+    function desenharRoleta(rotacao = 0) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(centroX, centroY);
+      ctx.rotate(rotacao);
+      const anguloSetor = (2 * Math.PI) / totalSetores;
+
+      for (let i = 0; i < totalSetores; i++) {
         ctx.beginPath();
-        ctx.fillStyle = cores[i];
-        ctx.moveTo(150, 150);
-        ctx.arc(150, 150, 150, i * anguloSetor, (i + 1) * anguloSetor);
-        ctx.lineTo(150, 150);
+        ctx.fillStyle = setores[i].cor;
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, raio, i * anguloSetor, (i + 1) * anguloSetor);
+        ctx.closePath();
         ctx.fill();
+
         ctx.save();
-        ctx.translate(150, 150);
-        ctx.rotate(i * anguloSetor + anguloSetor / 2);
-        ctx.fillStyle = 'black';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText(setores[i] + '%', 70, 10);
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 18px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const anguloTexto = i * anguloSetor + anguloSetor / 2;
+        ctx.rotate(anguloTexto);
+        ctx.fillText(setores[i].texto, raio / 2, 0);
         ctx.restore();
       }
-    }
-
-    function atualizarPrecos(desconto) {
-      document.querySelectorAll('.produto').forEach(produto => {
-        const precoOriginal = parseFloat(produto.dataset.preco);
-        const precoComDesconto = precoOriginal * (1 - desconto / 100);
-        produto.querySelector('.preco-novo').textContent = `R$ ${precoComDesconto.toFixed(2)}`;
-      });
+      ctx.restore();
     }
 
     desenharRoleta();
 
-    botao.addEventListener('click', () => {
-      if (girando) return;
-      girando = true;
-      const anguloFinal = 360 * 5 + Math.floor(Math.random() * 360);
-      const tempoGiro = 4000;
-      const inicio = performance.now();
+    const botao = document.getElementById('botaoGirar');
+    const produtos = document.getElementById('produtos');
+    const tituloDesconto = document.getElementById('tituloDesconto');
 
-      function animarGiro(tempoAtual) {
-        const progresso = (tempoAtual - inicio) / tempoGiro;
-        const angulo = anguloFinal * progresso;
-        ctx.clearRect(0, 0, 300, 300);
-        ctx.save();
-        ctx.translate(150, 150);
-        ctx.rotate(angulo * Math.PI / 180);
-        ctx.translate(-150, -150);
-        desenharRoleta();
-        ctx.restore();
+    botao.addEventListener('click', () => {
+      botao.disabled = true;
+      botao.textContent = 'Girando...';
+      produtos.style.display = 'none';
+
+      const voltas = 5;
+      const anguloSetor = (2 * Math.PI) / totalSetores;
+
+      // Forçar a cair apenas em 45% (índice 2) ou 75% (índice 3)
+      const indicesPermitidos = [2, 3];
+      const indiceAlvo = indicesPermitidos[Math.floor(Math.random() * indicesPermitidos.length)];
+
+      const anguloAlvo = (2 * Math.PI) - (indiceAlvo * anguloSetor + anguloSetor / 2);
+      const rotacaoFinal = voltas * 2 * Math.PI + anguloAlvo;
+
+      let inicio = null;
+      const duracao = 4000;
+
+      function animar(timestamp) {
+        if (!inicio) inicio = timestamp;
+        const progresso = (timestamp - inicio) / duracao;
+        const easeOut = 1 - Math.pow(1 - progresso, 3);
+        const rotacaoAtual = easeOut * rotacaoFinal;
+
+        desenharRoleta(rotacaoAtual);
+
         if (progresso < 1) {
-          requestAnimationFrame(animarGiro);
+          requestAnimationFrame(animar);
         } else {
-          const grauFinal = anguloFinal % 360;
-          const setorIndex = Math.floor((360 - grauFinal + 45) % 360 / 90);
-          const desconto = setores[setorIndex];
+          const desconto = parseInt(setores[indiceAlvo].texto);
           tituloDesconto.textContent = `🎁 Você ganhou ${desconto}% de desconto! Escolha seu modelo:`;
-          atualizarPrecos(desconto);
+
+          document.querySelectorAll('.produto').forEach(produto => {
+            const precoOriginal = parseFloat(produto.dataset.preco);
+            const precoComDesconto = precoOriginal * (1 - desconto / 100);
+            produto.querySelector('.preco-novo').textContent = `R$ ${precoComDesconto.toFixed(2)}`;
+          });
+
           produtos.style.display = 'block';
-          girando = false;
+          botao.textContent = 'Girar Novamente';
+          botao.disabled = false;
         }
       }
 
-      requestAnimationFrame(animarGiro);
+      requestAnimationFrame(animar);
     });
   </script>
 </body>
