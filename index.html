@@ -6,6 +6,10 @@
   <title>Promoção Apple Watch</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Roboto', sans-serif;
       background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
@@ -63,6 +67,14 @@
 
     button:hover {
       background-color: #218838;
+    }
+
+    #contador {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #cc0000;
+      margin-bottom: 20px;
     }
 
     .produtos {
@@ -140,6 +152,34 @@
       50% { transform: scale(1.02); }
       100% { transform: scale(1); }
     }
+
+    #notificacoes-compras {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 9999;
+    }
+
+    .notificacao {
+      background-color: #fff;
+      padding: 12px 18px;
+      border-radius: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin-top: 10px;
+      animation: fadeInOut 6s ease forwards;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 6px solid #28a745;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(20px); }
+      10% { opacity: 1; transform: translateY(0); }
+      90% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(20px); }
+    }
   </style>
 </head>
 <body>
@@ -149,12 +189,14 @@
     <canvas id="roleta" width="300" height="300"></canvas>
   </div>
   <button id="botaoGirar">Girar Roleta</button>
-  
+
+  <div id="contador" style="display:none;">
+    ⏳ Promoção válida por <span id="tempoRestante">03:00</span>
+  </div>
+
   <div class="produtos" id="produtos">
     <h2 id="tituloDesconto">🎁 Você ganhou XX% de desconto! Escolha seu modelo:</h2>
     <div class="produto-grid">
-      <!-- Produtos mantidos iguais, apenas reorganizados -->
-      <!-- Você pode substituir as imagens se quiser -->
       <div class="produto" data-preco="1500">
         <img src="uploads/series2.jpeg" alt="Series 2" />
         <h3>Apple Watch Series 2</h3>
@@ -193,7 +235,8 @@
     </div>
   </div>
 
-  <!-- JS continua igual -->
+  <div id="notificacoes-compras"></div>
+
   <script>
     const canvas = document.getElementById('roleta');
     const ctx = canvas.getContext('2d');
@@ -247,7 +290,7 @@
       botao.textContent = 'Girando...';
       produtos.style.display = 'none';
 
-      const voltas = 6;
+      const voltas = 5;
       const anguloSetor = (2 * Math.PI) / totalSetores;
       const indicesPermitidos = [2, 3];
       const indiceAlvo = indicesPermitidos[Math.floor(Math.random() * indicesPermitidos.length)];
@@ -280,11 +323,57 @@
           produtos.style.display = 'block';
           botao.textContent = 'Girar Novamente';
           botao.disabled = false;
+          iniciarContagemRegressiva(180);
+          simularCompradores();
         }
       }
 
       requestAnimationFrame(animar);
     });
+
+    function iniciarContagemRegressiva(duracaoSegundos) {
+      const contadorDiv = document.getElementById('contador');
+      const tempoSpan = document.getElementById('tempoRestante');
+      contadorDiv.style.display = 'block';
+
+      let tempo = duracaoSegundos;
+
+      const intervalo = setInterval(() => {
+        const minutos = Math.floor(tempo / 60).toString().padStart(2, '0');
+        const segundos = (tempo % 60).toString().padStart(2, '0');
+        tempoSpan.textContent = `${minutos}:${segundos}`;
+
+        if (--tempo < 0) {
+          clearInterval(intervalo);
+          tempoSpan.textContent = 'Expirado';
+        }
+      }, 1000);
+    }
+
+    function simularCompradores() {
+      const nomes = ['João', 'Maria', 'Carlos', 'Ana', 'Felipe', 'Bruna', 'Lucas', 'Patrícia'];
+      const cidades = ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Salvador', 'Curitiba', 'Fortaleza'];
+      const modelos = ['Series 2', 'Series 3', 'SE', 'Series 5', 'Series 6'];
+      const container = document.getElementById('notificacoes-compras');
+
+      function mostrarNotificacao() {
+        const nome = nomes[Math.floor(Math.random() * nomes.length)];
+        const cidade = cidades[Math.floor(Math.random() * cidades.length)];
+        const modelo = modelos[Math.floor(Math.random() * modelos.length)];
+        const minutos = Math.floor(Math.random() * 4) + 1;
+
+        const div = document.createElement('div');
+        div.className = 'notificacao';
+        div.innerHTML = `🛍️ <strong>${nome}</strong> de <strong>${cidade}</strong> comprou <strong>Apple Watch ${modelo}</strong> há ${minutos} min`;
+        container.appendChild(div);
+
+        setTimeout(() => {
+          container.removeChild(div);
+        }, 6000);
+      }
+
+      setInterval(mostrarNotificacao, 10000); // A cada 10 segundos
+    }
   </script>
 </body>
 </html>
