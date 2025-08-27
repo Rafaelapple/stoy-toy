@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Loja Dia das Crianças - Labubu & Tablets</title>
+  <title>Loja Dia das Crianças - Descontos Especiais</title>
   <style>
     body {
       font-family: 'Comic Sans MS', Arial, sans-serif;
@@ -27,8 +27,13 @@
       50% { transform: scale(1.05); }
     }
 
-    main {
-      padding: 20px;
+    #temporizador {
+      font-size: 1.2em;
+      background: #d32f2f;
+      color: #fff;
+      padding: 10px;
+      font-weight: bold;
+      display: none;
     }
 
     .produtos {
@@ -89,7 +94,7 @@
     #caixa-surpresa {
       cursor: pointer;
       display: inline-block;
-      margin: 30px 0;
+      margin: 50px auto;
     }
 
     #caixa-surpresa .caixa {
@@ -105,6 +110,7 @@
       font-weight: bold;
       box-shadow: 0 6px 15px rgba(0,0,0,0.2);
       transition: transform 0.5s, background 0.5s;
+      margin: auto;
     }
 
     #mensagem-desconto {
@@ -148,74 +154,123 @@
       opacity: 1;
       transform: translateY(0);
     }
-
-    @media (max-width: 600px) {
-      header { font-size: 1.4em; padding: 20px 10px; }
-      .carrinho { bottom: 10px; right: 10px; font-size: 0.85em; }
-      #caixa-surpresa .caixa { width: 140px; height: 140px; font-size: 1em; }
-    }
   </style>
 </head>
 <body>
 
-<header>🎉 Promoção Dia das Crianças! Tudo com 45% OFF! 🎉</header>
+<header>🎉 Promoção Dia das Crianças 🎉</header>
+<div id="temporizador">⏰ Tempo restante com desconto: <span id="tempo">10:00</span></div>
 
 <main>
-
   <!-- Caixa Surpresa -->
   <section id="caixa-surpresa" onclick="abrirCaixa()" aria-label="Abrir caixa surpresa de desconto">
     <div class="caixa">🎁 Clique aqui!</div>
   </section>
-  <div id="mensagem-desconto" role="alert">🎈 Você desbloqueou o <strong>Desconto do Dia das Crianças</strong>! 45% OFF aplicado!</div>
 
-  <!-- Produtos -->
-  <section class="produtos" id="lista-produtos">
-    <!-- Produtos serão inseridos aqui via JavaScript -->
-  </section>
+  <div id="mensagem-desconto" role="alert">🎈 Desconto de 45% ativado! Aproveite por tempo limitado!</div>
+
+  <!-- Lista de Produtos (oculta inicialmente) -->
+  <section class="produtos" id="lista-produtos" style="display: none;"></section>
 </main>
 
-<!-- Carrinho -->
+<!-- Carrinho e Toast -->
 <div class="carrinho" id="carrinho">Carrinho: 0 itens – R$ 0,00</div>
 <div class="toast" id="toast"></div>
 
 <script>
   const produtos = [
-    { nome: "Boneco Labubu", preco: 199.00, imagem: "https://via.placeholder.com/280x180?text=Labubu" },
-    { nome: "Tablet Samsung", preco: 1499.00, imagem: "https://via.placeholder.com/280x180?text=Tablet+Samsung" },
-    { nome: "Carrinho de Controle Remoto", preco: 299.00, imagem: "https://via.placeholder.com/280x180?text=Carrinho+RC" },
-    { nome: "Bola da Copa 2022", preco: 120.00, imagem: "https://via.placeholder.com/280x180?text=Bola+Copa+2022" },
-    { nome: "Hoverboard Infantil", preco: 999.00, imagem: "https://via.placeholder.com/280x180?text=Hoverboard" },
-    { nome: "Pista de Skate de Dedo", preco: 75.00, imagem: "https://via.placeholder.com/280x180?text=Skate+de+Dedo" },
-    { nome: "Celular Samsung", preco: 2199.00, imagem: "https://via.placeholder.com/280x180?text=Celular+Samsung" },
-    { nome: "Patinete Eletrônico", preco: 1490.00, imagem: "https://via.placeholder.com/280x180?text=Patinete+Elétrico" },
-    { nome: "Caixa de Som JBL", preco: 699.00, imagem: "https://via.placeholder.com/280x180?text=Caixa+JBL" },
-    { nome: "Patins", preco: 359.00, imagem: "https://via.placeholder.com/280x180?text=Patins" },
-    { nome: "Quadro do Neymar", preco: 89.00, imagem: "https://via.placeholder.com/280x180?text=Quadro+Neymar" },
-    { nome: "Máscara do Batman", preco: 49.00, imagem: "https://via.placeholder.com/280x180?text=Máscara+Batman" },
-    { nome: "Boobie Goods", preco: 39.00, imagem: "https://via.placeholder.com/280x180?text=Boobie+Goods" },
-    { nome: "Boneco do Coringa", preco: 89.90, imagem: "https://via.placeholder.com/280x180?text=Coringa" },
+    { nome: "Boneco Labubu", preco: 199.00 },
+    { nome: "Tablet Samsung", preco: 1499.00 },
+    { nome: "Carrinho de Controle Remoto", preco: 299.00 },
+    { nome: "Bola da Copa 2022", preco: 120.00 },
+    { nome: "Hoverboard Infantil", preco: 999.00 },
+    { nome: "Pista de Skate de Dedo", preco: 75.00 },
+    { nome: "Celular Samsung", preco: 2199.00 },
+    { nome: "Patinete Eletrônico", preco: 1490.00 },
+    { nome: "Caixa de Som JBL", preco: 699.00 },
+    { nome: "Patins", preco: 359.00 },
+    { nome: "Quadro do Neymar", preco: 89.00 },
+    { nome: "Máscara do Batman", preco: 49.00 },
+    { nome: "Boobie Goods", preco: 39.00 },
+    { nome: "Boneco do Coringa", preco: 89.90 },
   ];
 
   const lista = document.getElementById("lista-produtos");
-
   const desconto = 0.45;
   let totalItens = 0;
   let totalValor = 0;
-  let descontoMostrado = false;
+  let descontoAtivo = false;
+  let tempoRestante = 600; // 10 minutos
 
-  produtos.forEach(p => {
-    const precoDesconto = (p.preco * (1 - desconto)).toFixed(2);
-    const card = document.createElement("article");
-    card.className = "produto";
-    card.innerHTML = `
-      <img src="${p.imagem}" alt="${p.nome}"/>
-      <h2>${p.nome}</h2>
-      <p class="preco-original">R$ ${p.preco.toFixed(2).replace('.', ',')}</p>
-      <p class="preco-desconto">R$ ${precoDesconto.replace('.', ',')}</p>
-      <button onclick="adicionarAoCarrinho('${p.nome}', ${precoDesconto})">Comprar</button>
-    `;
-    lista.appendChild(card);
-  });
+  function abrirCaixa() {
+    if (descontoAtivo) return;
+    descontoAtivo = true;
+
+    const caixa = document.querySelector("#caixa-surpresa .caixa");
+    const mensagem = document.getElementById("mensagem-desconto");
+
+    caixa.innerText = "Abrindo...";
+    caixa.style.transform = "rotate(360deg) scale(1.1)";
+    
+    setTimeout(() => {
+      caixa.style.display = "none";
+      mensagem.style.display = "block";
+      document.getElementById("lista-produtos").style.display = "grid";
+      document.getElementById("temporizador").style.display = "block";
+      renderizarProdutos();
+      iniciarTemporizador();
+    }, 1000);
+  }
+
+  function renderizarProdutos() {
+    produtos.forEach(p => {
+      const precoComDesconto = (p.preco * (1 - desconto)).toFixed(2);
+      const produtoEl = document.createElement("article");
+      produtoEl.className = "produto";
+      produtoEl.innerHTML = `
+        <img src="https://via.placeholder.com/280x180?text=${encodeURIComponent(p.nome)}" alt="${p.nome}">
+        <h2>${p.nome}</h2>
+        <p class="preco-original">R$ ${p.preco.toFixed(2).replace('.', ',')}</p>
+        <p class="preco-desconto">R$ ${precoComDesconto.replace('.', ',')}</p>
+        <button onclick="adicionarAoCarrinho('${p.nome}', ${precoComDesconto})">Comprar</button>
+      `;
+      lista.appendChild(produtoEl);
+    });
+  }
+
+  function iniciarTemporizador() {
+    const timerEl = document.getElementById("tempo");
+    const interval = setInterval(() => {
+      if (tempoRestante <= 0) {
+        clearInterval(interval);
+        timerEl.innerText = "00:00";
+        encerrarDesconto();
+        return;
+      }
+
+      const minutos = Math.floor(tempoRestante / 60);
+      const segundos = tempoRestante % 60;
+      timerEl.innerText = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+      tempoRestante--;
+    }, 1000);
+  }
+
+  function encerrarDesconto() {
+    document.querySelectorAll(".produto button").forEach(btn => {
+      btn.disabled = true;
+      btn.innerText = "Tempo Esgotado";
+      btn.style.background = "#aaa";
+      btn.style.cursor = "not-allowed";
+    });
+    mostrarToast("⛔ Tempo esgotado! O desconto foi encerrado.");
+  }
+
+  function adicionarAoCarrinho(produto, preco) {
+    totalItens++;
+    totalValor += preco;
+    atualizarCarrinho();
+    mostrarToast(`✅ ${produto} adicionado ao carrinho!`);
+  }
 
   function atualizarCarrinho() {
     document.getElementById("carrinho").innerText =
@@ -227,29 +282,6 @@
     toast.textContent = mensagem;
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 2500);
-  }
-
-  function adicionarAoCarrinho(produto, preco) {
-    totalItens++;
-    totalValor += preco;
-    atualizarCarrinho();
-    mostrarToast(`✅ ${produto} adicionado ao carrinho!`);
-  }
-
-  function abrirCaixa() {
-    if (descontoMostrado) return;
-    descontoMostrado = true;
-    const caixa = document.querySelector("#caixa-surpresa .caixa");
-    const mensagem = document.getElementById("mensagem-desconto");
-
-    caixa.innerText = "Abrindo...";
-    caixa.style.transform = "rotate(360deg) scale(1.1)";
-
-    setTimeout(() => {
-      mensagem.style.display = "block";
-      caixa.innerText = "🎉 Desconto Ativado!";
-      caixa.style.background = "linear-gradient(to right, #8bc34a, #558b2f)";
-    }, 1000);
   }
 </script>
 
