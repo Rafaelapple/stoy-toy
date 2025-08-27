@@ -192,14 +192,14 @@
 </head>
 <body>
 
-<header>🎉 Promoção Dia das Crianças! Tudo com 45% OFF! 🎉</header>
+<header>🎉 GANHE ATÉ 50% DE DESCONTO! 🎉</header>
 
 <main>
   <!-- Caixa Surpresa -->
   <section id="caixa-surpresa" onclick="abrirCaixa()" aria-label="Abrir caixa surpresa de desconto" role="button" tabindex="0" onkeypress="if(event.key==='Enter'){abrirCaixa();}">
     <div class="caixa">🎁 Clique aqui!</div>
   </section>
-  <div id="mensagem-desconto" role="alert" aria-live="polite">🎈 Você desbloqueou o <strong>Desconto do Dia das Crianças</strong>! 45% OFF aplicado!</div>
+  <div id="mensagem-desconto" role="alert" aria-live="polite">🎈 Você desbloqueou o <strong>Desconto do Dia das Crianças</strong>! 50% OFF aplicado!</div>
   <div id="temporizador">⏰ Tempo restante: <span id="tempo">10:00</span></div>
 
   <!-- Lista de Produtos -->
@@ -276,47 +276,39 @@
     },
     {
       nome: "Máscara do Batman",
-      preco: 180.00,
+      preco: 120.00,
       imagem: "https://superlegalbrinquedos.vtexassets.com/arquivos/ids/228056/Mascara-Eletronica---Batman-Armor-Up---15-Sons-e-Luzes---DC-Comics---Sunny-1.jpg?v=638422414673770000"
     },
     {
       nome: "Boneco do Coringa",
-      preco: 250.00,
+      preco: 220.00,
       imagem: "https://http2.mlstatic.com/D_NQ_NP_949891-MLB89275608717_082025-O-boneco-coringa-estatua-de-resina-joker-23cm.webp"
     },
     {
       nome: "Caixa de Som JBL",
-      preco: 370.00,
+      preco: 560.00,
       imagem: "https://d3alv7ekdacjys.cloudfront.net/Custom/Content/Products/10/65/1065174_caixa-de-som-jbl-boombox-portatil-com-bluetooth-a-prova-dagua-camuflado_m1_636911497357161076.webp"
     }
   ];
 
   function abrirCaixa() {
     if (descontoAtivo) return;
+
     descontoAtivo = true;
-    const caixa = document.querySelector("#caixa-surpresa .caixa");
-    const mensagem = document.getElementById("mensagem-desconto");
-    const lista = document.getElementById("lista-produtos");
-    const timer = document.getElementById("temporizador");
-
-    caixa.innerText = "Desbloqueando...";
-    caixa.style.pointerEvents = "none";
-    caixa.style.transform = "rotate(360deg) scale(1.1)";
-
-    setTimeout(() => {
-      caixa.style.display = "none";
-      mensagem.style.display = "block";
-      timer.style.display = "block";
-      lista.style.display = "grid";
-      carregarProdutos();
-      iniciarTemporizador();
-    }, 1000);
+    document.getElementById("caixa-surpresa").style.display = "none";
+    document.getElementById("mensagem-desconto").style.display = "block";
+    document.getElementById("temporizador").style.display = "block";
+    mostrarProdutos();
+    iniciarTemporizador();
   }
 
-  function carregarProdutos() {
+  function mostrarProdutos() {
     const lista = document.getElementById("lista-produtos");
+    lista.style.display = "grid";
+
     produtos.forEach(p => {
-      const precoComDesconto = (p.preco * 0.55).toFixed(2); // 45% off = pagar 55%
+      // Aplica desconto de 50%
+      const precoComDesconto = (p.preco * 0.5).toFixed(2);
       const produtoEl = document.createElement("div");
       produtoEl.classList.add("produto");
       produtoEl.innerHTML = `
