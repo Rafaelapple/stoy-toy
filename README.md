@@ -248,7 +248,7 @@
     <div class="depoimentos">
       <h2>Clientes Satisfeitos:</h2>
       <div class="depoimento">
-        <p>"Chegou rapidinho e tudo certinho. Meu filho ama o Labubu!"</p>
+        <p>"Chegou rapidinho e tudo certinho. Minha filha ama o Labubu!"</p>
         <p class="cliente">— Mariana, SP</p>
       </div>
       <div class="depoimento">
@@ -256,7 +256,7 @@
         <p class="cliente">— Carlos, RJ</p>
       </div>
       <div class="depoimento">
-        <p>"Patins incrível. Atendimento nota 10 e entrega rápida."</p>
+        <p>"Patins incrível, veio da cor errada, selecionei a troca e trocaram em menos de 7 dias. Atendimento nota 10 e entrega rápida."</p>
         <p class="cliente">— Juliana, SP</p>
       </div>
     </div>
@@ -282,28 +282,29 @@
 
     const produtos = [
       { nome: "Boneco Labubu", preco: 199.00, imagem: "https://down-br.img.susercontent.com/file/br-11134207-7r98o-m9zzn8o7e1q1aa" },
-      { nome: "Tablet Samsung", preco: 1499.00, imagem: "https://gazin-images.gazin.com.br/cNBvTxoXDdo6uT5Wqw3FkJ4nzl8=/1920x/filters:format(webp):quality(75)/https://gazin-marketplace.s3.amazonaws.com/midias/imagens/2024/07/tablet-samsung-galaxy-tab-s6-lite-104-64gb-4gb-android-14-sm-p620nzadzto-112407032345.jpg" },
+      { nome: "Tablet Samsung", preco: 1499.00, imagem: "https://gazin-images.gazin.com.br/cNBvTxoXDdo6uT5Wqw3FkJ4nzl8=/1920x/..." },
       { nome: "Bola Copa de 2022", preco: 150.00, imagem: "https://img.odcdn.com.br/wp-content/uploads/2022/07/bola-copa-22.jpg" },
-      { nome: "Pista de Skate de Dedo", preco: 75.00, imagem: "https://a-static.mlcdn.com.br/800x600/pista-skate-dedo-profissional-rampa-e-corrimao-com-skate-dm-toys/fastvarejoloja/dmt6686-dellboard/53052402e90354dba997df19b78e5515.jpeg" },
+      { nome: "Pista de Skate de Dedo", preco: 75.00, imagem: "https://a-static.mlcdn.com.br/800x600/pista-skate-dedo-..." },
       { nome: "Quadro Neymar", preco: 299.90, imagem: "https://m.media-amazon.com/images/I/71YgRiaji1L._UF350,350_QL80_.jpg" },
       { nome: "Carrinho de Controle Remoto", preco: 320.00, imagem: "https://i.zst.com.br/thumbs/12/c/3b/-1347048930.jpg" },
       { nome: "Hoverboard Infantil", preco: 950.00, imagem: "https://m.media-amazon.com/images/I/51zpqiSLytL._UF894,1000_QL80_.jpg" },
-      { nome: "Celular Samsung", preco: 2200.00, imagem: "https://planoscelular.claro.com.br/medias/18599-0-zero-300Wx300H-productCard?context=bWFzdGVyfGltYWdlc3w2ODEzN3xpbWFnZS9wbmd8aUdKaUwyaGlZUzg1TlRrME1qUTBORGszTkRNNEx6RTROVGs1WHpCZmVtVnliMTh6TURCWGVETXdNRWhmY0hKdlpIVmpkRU5oY21RfDcyZjliNjg1OTk0NzNiOTI5ZTFkZDJkN2I3NWQzMTU2NDk3MTY5ZTk4NjM4OWExZTkwNWM1Y2Q3YTQ0MzI2OTY" },
+      {
+        nome: "Celular Samsung",
+        preco: 2200.00,
+        imagem: "https://t34114.vtexassets.com/arquivos/ids/244867/smartphone-samsung-galaxy-a16-lte-128gb-4gb-ram-tela-6-7-nfc-ip54-camera-de-ate-50mp-bateria-5000-mah-e-dual-chip-verde-claro-1.jpg?v=638708210592370000"
+      },
       { nome: "Patinete Elétrico", preco: 680.00, imagem: "https://www.mymax.ind.br/wp-content/uploads/2020/02/009239_1.jpg" },
-      { nome: "Bobbie Goods", preco: 80.00, imagem: "https://a-static.mlcdn.com.br/1500x1500/kit-120-canetinhas-livro-de-colorir-bobbie-goods-ponta-dupla-estojo-50-paginas-estojo-de-colorir-120-canetinhas/mbcomericoatacado/kitcnt120rosa/70d56208f977f12dc898ce1c86d36b81.jpeg" },
-      { nome: "Patins", preco: 430.00, imagem: "https://freitasvarejo.vteximg.com.br/arquivos/ids/175986-440-500/16092876001_1.jpg?v=637993807985830000" },
-      { nome: "Máscara do Batman", preco: 120.00, imagem: "https://superlegalbrinquedos.vtexassets.com/arquivos/ids/228056/Mascara-Eletronica---Batman-Armor-Up---15-Sons-e-Luzes---DC-Comics---Sunny-1.jpg?v=638422414673770000" },
+      { nome: "Bobbie Goods", preco: 80.00, imagem: "https://a-static.mlcdn.com.br/1500x1500/kit-120-canetinhas-..." },
+      { nome: "Patins", preco: 430.00, imagem: "https://freitasvarejo.vteximg.com.br/arquivos/ids/175986-440-..." },
+      { nome: "Máscara do Batman", preco: 120.00, imagem: "https://superlegalbrinquedos.vtexassets.com/arquivos/ids/..." },
       { nome: "Boneco do Coringa", preco: 220.00, imagem: "https://http2.mlstatic.com/D_NQ_NP_949891-MLB89275608717_082025-O-boneco-coringa-estatua-de-resina-joker-23cm.webp" },
-      { nome: "Caixa de Som JBL", preco: 560.00, imagem: "https://d3alv7ekdacjys.cloudfront.net/Custom/Content/Products/10/65/1065174_caixa-de-som-jbl-boombox-portatil-com-bluetooth-a-prova-dagua-camuflado_m1_636911497357161076.webp" }
+      { nome: "Caixa de Som JBL", preco: 560.00, imagem: "https://d3alv7ekdacjys.cloudfront.net/Custom/Content/Products/10/65/1065174_caixa-de-som-jbl-boombox-portatil-com-bluetooth-a-prova-dagua-camuflado_m1_..." }
     ];
 
     function habilitarCaixa() {
       const nomeInput = document.getElementById("nome-usuario");
       nomeUsuario = nomeInput.value.trim();
-      if (!nomeUsuario) {
-        alert("Por favor, digite seu nome para continuar.");
-        return;
-      }
+      if (!nomeUsuario) return alert("Por favor, digite seu nome para continuar.");
       document.getElementById("entrada-nome").style.display = "none";
       document.getElementById("caixa-surpresa").style.display = "inline-block";
     }
@@ -358,23 +359,18 @@
         }
         const m = String(Math.floor(tempoRestante / 60)).padStart(2, '0');
         const s = String(tempoRestante % 60).padStart(2, '0');
-        el.textContent = `${m}:${s}`;
-        tempoRestante--;
+        el.textContent = `${m}:${s}`; tempoRestante--;
       }, 1000);
     }
 
     function adicionarAoCarrinho(nome, preco, event) {
-      totalItens++;
-      totalValor += preco;
-      atualizarCarrinho();
+      totalItens++; totalValor += preco; atualizarCarrinho();
       mostrarToast(`✅ ${nome} adicionado ao carrinho!`);
-      event.target.disabled = true;
-      event.target.innerText = "Adicionado!";
+      event.target.disabled = true; event.target.innerText = "Adicionado!";
     }
 
     function atualizarCarrinho() {
-      document.getElementById("carrinho").innerText =
-        `Carrinho: ${totalItens} item(s) – R$ ${totalValor.toFixed(2).replace('.', ',')}`;
+      document.getElementById("carrinho").innerText = `Carrinho: ${totalItens} item(s) – R$ ${totalValor.toFixed(2).replace('.', ',')}`;
     }
 
     function mostrarToast(msg) {
