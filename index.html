@@ -251,7 +251,7 @@
   <div class="depoimentos">
     <h2>Clientes Satisfeitos:</h2>
     <div class="depoimento">
-      <p>"Chegou rapidinho e tudo certinho. Meu filho ama o Labubu!"</p>
+      <p>"Chegou rapidinho e tudo certinho. Minha filha ama o Labubu!"</p>
       <p class="cliente">— Mariana, SP</p>
     </div>
     <div class="depoimento">
@@ -259,7 +259,7 @@
       <p class="cliente">— Carlos, RJ</p>
     </div>
     <div class="depoimento">
-      <p>"Patins incrível. Atendimento nota 10 e entrega rápida."</p>
+      <p>"Patins incrível, veio da cor errada mas eles trocaram em menos de 7 dias. Atendimento nota 10 e entrega rápida."</p>
       <p class="cliente">— Juliana, SP</p>
     </div>
   </div>
