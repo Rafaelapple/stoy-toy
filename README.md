@@ -34,15 +34,22 @@
       padding: 10px;
       font-weight: bold;
       display: none;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    main {
+      padding: 0 10px 30px;
+      max-width: 1200px;
+      margin: auto;
     }
 
     .produtos {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 20px;
-      padding: 30px 10px;
-      max-width: 1200px;
-      margin: auto;
+      padding-top: 30px;
     }
 
     .produto {
@@ -51,6 +58,9 @@
       border-radius: 15px;
       padding: 20px;
       transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .produto:hover {
@@ -63,45 +73,63 @@
       height: 180px;
       object-fit: cover;
       border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .produto h2 {
+      font-size: 1.2em;
+      margin: 0 0 10px 0;
+      min-height: 48px;
     }
 
     .preco-original {
       text-decoration: line-through;
       color: #888;
       font-size: 0.9em;
+      margin-bottom: 5px;
     }
 
     .preco-desconto {
       color: #d32f2f;
       font-size: 1.4em;
       font-weight: bold;
+      margin-bottom: 10px;
     }
 
     .produto button {
       background: #d32f2f;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 25px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1em;
-      margin-top: 10px;
+      margin-top: auto;
       transition: background 0.3s;
+      width: 100%;
+      max-width: 220px;
     }
 
-    .produto button:hover {
+    .produto button:hover:not(:disabled) {
       background: #b71c1c;
+    }
+
+    .produto button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
     }
 
     #caixa-surpresa {
       cursor: pointer;
       display: inline-block;
-      margin: 50px auto;
+      margin: 50px auto 20px;
+      width: 160px;
+      height: 160px;
     }
 
     #caixa-surpresa .caixa {
-      width: 160px;
-      height: 160px;
+      width: 100%;
+      height: 100%;
       background: conic-gradient(#ffca28, #ff8f00, #f4511e, #ffca28);
       border-radius: 15px;
       display: flex;
@@ -112,7 +140,7 @@
       font-weight: bold;
       box-shadow: 0 6px 15px rgba(0,0,0,0.2);
       transition: transform 0.5s, background 0.5s;
-      margin: auto;
+      user-select: none;
     }
 
     #mensagem-desconto {
@@ -121,6 +149,8 @@
       color: #388e3c;
       font-weight: bold;
       margin-top: 15px;
+      margin-bottom: 20px;
+      padding: 0 10px;
     }
 
     .carrinho {
@@ -135,6 +165,8 @@
       font-size: 0.95em;
       z-index: 999;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      max-width: 90vw;
+      overflow-wrap: break-word;
     }
 
     .toast {
@@ -150,11 +182,64 @@
       transform: translateY(20px);
       transition: opacity 0.5s, transform 0.5s;
       z-index: 1000;
+      max-width: 90vw;
+      word-wrap: break-word;
     }
 
     .toast.show {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* RESPONSIVO - Celulares */
+    @media (max-width: 480px) {
+      header {
+        font-size: 1.4em;
+        padding: 20px 10px;
+      }
+
+      #temporizador {
+        font-size: 1em;
+        padding: 8px 5px;
+      }
+
+      #caixa-surpresa {
+        width: 140px;
+        height: 140px;
+        margin: 30px auto 15px;
+      }
+
+      #caixa-surpresa .caixa {
+        font-size: 1em;
+      }
+
+      .produtos {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding-top: 20px;
+      }
+
+      .produto img {
+        height: 150px;
+      }
+
+      .produto h2 {
+        font-size: 1.1em;
+        min-height: 42px;
+      }
+
+      .produto button {
+        max-width: 100%;
+        padding: 12px;
+        font-size: 1em;
+      }
+
+      .carrinho, .toast {
+        right: 10px;
+        bottom: 15px;
+        max-width: 95vw;
+        font-size: 0.9em;
+      }
     }
   </style>
 </head>
@@ -165,11 +250,11 @@
 
 <main>
   <!-- Caixa Surpresa -->
-  <section id="caixa-surpresa" onclick="abrirCaixa()">
+  <section id="caixa-surpresa" onclick="abrirCaixa()" aria-label="Clique para abrir a caixa surpresa" role="button" tabindex="0" onkeypress="if(event.key==='Enter') abrirCaixa();">
     <div class="caixa">🎁 Clique aqui!</div>
   </section>
 
-  <div id="mensagem-desconto">🎈 Desconto de 45% ativado! Aproveite por tempo limitado!</div>
+  <div id="mensagem-desconto" role="alert">🎈 Desconto de 45% ativado! Aproveite por tempo limitado!</div>
 
   <!-- Lista de Produtos -->
   <section class="produtos" id="lista-produtos" style="display: none;"></section>
@@ -177,7 +262,7 @@
 
 <!-- Carrinho e Toast -->
 <div class="carrinho" id="carrinho">Carrinho: 0 itens – R$ 0,00</div>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 
 <script>
   const produtos = [
@@ -188,7 +273,7 @@
     { nome: "Quadro do Neymar", preco: 89.00, imagem: "https://m.media-amazon.com/images/I/71YgRiaji1L._UF350,350_QL80_.jpg" },
     { nome: "Carrinho Controle Remoto", preco: 299.00, imagem: "https://i.zst.com.br/thumbs/12/c/3b/-1347048930.jpg" },
     { nome: "Hoverboard Infantil", preco: 999.00, imagem: "https://m.media-amazon.com/images/I/51zpqiSLytL._UF894,1000_QL80_.jpg" },
-    { nome: "Celular Samsung", preco: 2199.00, imagem: "https://planoscelular.claro.com.br/medias/18599-0-zero-300Wx300H-productCard?context=bWFzdGVyfGltYWdlc3w2ODEzN3xpbWFnZS9wbmd8YUdKaUwyaGlZUzg1TlRrME1qUTBORGszTkRNNEx6RTROVGs1WHpCZmVtVnliMTh6TURCWGVETXdNRWhmY0hKdlpIVmpkRU5oY21RfDcyZjliNjg1OTk0NzNiOTI5ZTFkZDJkN2I3NWQzMTU2NDk3MTY5ZTk4NjM4OWExZTkwNWM1Y2Q3YTQ0MzI2OTY" },
+    { nome: "Celular Samsung", preco: 2199.00, imagem: "https://planoscelular.claro.com.br/medias/18599-0-zero-300Wx300H-productCard?context=bWFzdGVyfGltYWdlc3w2ODEzN3xpbWFnZS9wbmd8YUdKaUwyaGlZUzg1TlRrME1qUTBORGszTkRNNEx6RTROVGs1WHpCZmVtVnliMTh6TURCWGVETXdNRWhmY0hKdlpIVmpkRU5oY21RfDcyZjliNjg1OTk0NzNiOTI5ZTFkZDJkN2I3NWQzMTU2NDk3MTY5ZTk4NjM4OWExZTkwNWMxY2Q3YTQ0MzI2OTY" },
     { nome: "Patinete Eletrônico", preco: 899.00, imagem: "https://www.mymax.ind.br/wp-content/uploads/2020/02/009239_1.jpg" },
     { nome: "Boobie Goods", preco: 150.00, imagem: "https://a-static.mlcdn.com.br/1500x1500/kit-120-canetinhas-livro-de-colorir-bobbie-goods-ponta-dupla-estojo-50-paginas-estojo-de-colorir-120-canetinhas/mbcomericoatacado/kitcnt120rosa/70d56208f977f12dc898ce1c86d36b81.jpeg" },
     { nome: "Patins", preco: 299.00, imagem: "https://freitasvarejo.vteximg.com.br/arquivos/ids/175986-440-500/16092876001_1.jpg?v=637993807985830000" },
@@ -200,7 +285,7 @@
   let totalItens = 0;
   let totalValor = 0;
   let descontoAtivo = false;
-  let tempoRestante = 600;
+  let tempoRestante = 600; // 10 minutos em segundos
 
   function abrirCaixa() {
     if (descontoAtivo) return;
@@ -212,6 +297,8 @@
     const timer = document.getElementById("temporizador");
 
     caixa.innerText = "Desbloqueando...";
+    caixa.style.pointerEvents = "none";
+
     setTimeout(() => {
       caixa.style.display = "none";
       mensagem.style.display = "block";
@@ -229,7 +316,7 @@
       const produtoEl = document.createElement("article");
       produtoEl.className = "produto";
       produtoEl.innerHTML = `
-        <img src="${p.imagem}" alt="${p.nome}">
+        <img src="${p.imagem}" alt="Imagem de ${p.nome}">
         <h2>${p.nome}</h2>
         <p class="preco-original">R$ ${p.preco.toFixed(2).replace('.', ',')}</p>
         <p class="preco-desconto">R$ ${precoComDesconto.replace('.', ',')}</p>
