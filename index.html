@@ -252,9 +252,7 @@
         <button onclick="habilitarCaixa()" style="background: #ff6f00; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1em;">Confirmar</button>
       </div>
 
-      <section id="caixa-surpresa" onclick="abrirCaixa()" role="button" tabindex="0"
-        onkeypress="if(event.key==='Enter') abrirCaixa();" aria-label="Clique para abrir a caixa surpresa"
-        style="display: none;">
+      <section id="caixa-surpresa" onclick="abrirCaixa()" role="button" tabindex="0" onkeypress="if(event.key==='Enter') abrirCaixa();" aria-label="Clique para abrir a caixa surpresa" style="display: none;">
         <div class="caixa">🎁 Clique aqui!</div>
       </section>
 
@@ -284,11 +282,26 @@
   <footer>
     <h3>Confiança e Segurança</h3>
     <div class="footer-container">
-      <!-- Ícones -->
+      <div class="footer-item">
+        <i class="fa-solid fa-shield-halved"></i><span>Produtos Originais</span>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-child"></i><span>+3 anos</span>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-truck"></i><span>Entrega em 7 dias</span>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-rotate-left"></i><span>Trocas e Devoluções</span>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-lock"></i><span>SSL Seguro</span>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-star"></i><span>+2.365 entregas realizadas</span>
+      </div>
     </div>
-    <div class="footer-bottom">
-      © 2025 Teens & Eletronicos. Todos os direitos reservados.
-    </div>
+    <div class="footer-bottom">© 2025 Teens & Eletronicos. Todos os direitos reservados.</div>
   </footer>
 
   <div class="carrinho" id="carrinho">Carrinho: 0 itens – R$ 0,00</div>
@@ -298,7 +311,22 @@
     let totalItens = 0, totalValor = 0, descontoAtivo = false, tempoRestante = 600;
     let nomeUsuario = "";
 
-    const produtos = [/*...mesma lista de produtos...*/];
+    const produtos = [
+      { nome: "Boneco Labubu", preco: 199.00, imagem: "https://down-br.img.susercontent.com/file/br-11134207-7r98o-m9zzn8o7e1q1aa" },
+      { nome: "Tablet Samsung", preco: 1499.00, imagem: "https://gazin-images.gazin.com.br/cNBvTxoXDdo6uT5Wqw3FkJ4nzl8=/1920x/filters:format(webp):quality(75)/https://gazin-marketplace.s3.amazonaws.com/midias/imagens/2024/07/tablet-samsung-galaxy-tab-s6-lite-104-64gb-4gb-android-14-sm-p620nzadzto-112407032345.jpg" },
+      { nome: "Bola Copa de 2022", preco: 150.00, imagem: "https://img.odcdn.com.br/wp-content/uploads/2022/07/bola-copa-22.jpg" },
+      { nome: "Pista de Skate de Dedo", preco: 75.00, imagem: "https://a-static.mlcdn.com.br/800x600/pista-skate-dedo-profissional-rampa-e-corrimao-com-skate-dm-toys/fastvarejoloja/dmt6686-dellboard/53052402e90354dba997df19b78e5515.jpeg" },
+      { nome: "Quadro Neymar", preco: 299.90, imagem: "https://m.media-amazon.com/images/I/71YgRiaji1L._UF350,350_QL80_.jpg" },
+      { nome: "Carrinho de Controle Remoto", preco: 320.00, imagem: "https://i.zst.com.br/thumbs/12/c/3b/-1347048930.jpg" },
+      { nome: "Hoverboard Infantil", preco: 950.00, imagem: "https://m.media-amazon.com/images/I/51zpqiSLytL._UF894,1000_QL80_.jpg" },
+      { nome: "Celular Samsung", preco: 2200.00, imagem: "https://planoscelular.claro.com.br/medias/18599-0-zero-300Wx300H-productCard?context=bWFzdGVyfGltYWdlc3w2ODEzN3xpbWFnZS9wbmd8aUdKaUwyaGlZUzg1TlRrME1qUTBORGszTkRNNEx6RTROVGs1WHpCZmVtVnliMTh6TURCWGVETXdNRWhmY0hKdlpIVmpkRU5oY21RfDcyZjliNjg1OTk0NzNiOTI5ZTFkZDJkN2I3NWQzMTU2NDk3MTY5ZTk4NjM4OWExZTkwNWM1Y2Q3YTQ0MzI2OTY" },
+      { nome: "Patinete Elétrico", preco: 680.00, imagem: "https://www.mymax.ind.br/wp-content/uploads/2020/02/009239_1.jpg" },
+      { nome: "Bobbie Goods", preco: 80.00, imagem: "https://a-static.mlcdn.com.br/1500x1500/kit-120-canetinhas-livro-de-colorir-bobbie-goods-ponta-dupla-estojo-50-paginas-estojo-de-colorir-120-canetinhas/mbcomericoatacado/kitcnt120rosa/70d56208f977f12dc898ce1c86d36b81.jpeg" },
+      { nome: "Patins", preco: 430.00, imagem: "https://freitasvarejo.vteximg.com.br/arquivos/ids/175986-440-500/16092876001_1.jpg?v=637993807985830000" },
+      { nome: "Máscara do Batman", preco: 120.00, imagem: "https://superlegalbrinquedos.vtexassets.com/arquivos/ids/228056/Mascara-Eletronica---Batman-Armor-Up---15-Sons-e-Luzes---DC-Comics---Sunny-1.jpg?v=638422414673770000" },
+      { nome: "Boneco do Coringa", preco: 220.00, imagem: "https://http2.mlstatic.com/D_NQ_NP_949891-MLB89275608717_082025-O-boneco-coringa-estatua-de-resina-joker-23cm.webp" },
+      { nome: "Caixa de Som JBL", preco: 560.00, imagem: "https://d3alv7ekdacjys.cloudfront.net/Custom/Content/Products/10/65/1065174_caixa-de-som-jbl-boombox-portatil-com-bluetooth-a-prova-dagua-camuflado_m1_636911497357161076.webp" }
+    ];
 
     function habilitarCaixa() {
       const nomeInput = document.getElementById("nome-usuario");
@@ -377,7 +405,7 @@
     }
 
     function atualizarCarrinho() {
-      document.getElementById("carrinho").innerText = 
+      document.getElementById("carrinho").innerText =
         `Carrinho: ${totalItens} item(s) – R$ ${totalValor.toFixed(2).replace('.', ',')}`;
     }
 
