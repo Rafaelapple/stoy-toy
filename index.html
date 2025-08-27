@@ -9,17 +9,23 @@
       font-family: 'Comic Sans MS', Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom, #fff8e1, #ffe0b2);
+      /* Imagem de fundo */
+      background: 
+        linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2B46wPHBfP57ZeknvVn6k6YtI7F2IdD_uZw&s') no-repeat center center fixed;
+      background-size: cover;
       color: #333;
       text-align: center;
+      min-height: 100vh;
     }
 
     header {
-      background: #ff6f00;
+      background: #ff6f00cc;
       color: #fff;
       padding: 25px 15px;
       font-size: 1.8em;
       animation: pulse 2s infinite;
+      user-select: none;
     }
 
     @keyframes pulse {
@@ -29,6 +35,8 @@
 
     main {
       padding: 20px;
+      min-height: calc(100vh - 80px);
+      box-sizing: border-box;
     }
 
     #caixa-surpresa {
@@ -80,7 +88,7 @@
     }
 
     .produto {
-      background: #fff;
+      background: rgba(255,255,255,0.9);
       border: 3px dashed #ff6f00;
       border-radius: 15px;
       padding: 20px;
