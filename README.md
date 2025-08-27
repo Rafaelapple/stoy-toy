@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Promoção Dia das Crianças</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     body {
       font-family: 'Comic Sans MS', Arial, sans-serif;
@@ -17,6 +18,8 @@
       color: #333;
       text-align: center;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
@@ -32,6 +35,7 @@
     }
 
     main {
+      flex: 1;
       padding: 20px;
       max-width: 1100px;
       margin: auto;
@@ -199,9 +203,45 @@
       color: #555;
     }
 
+    /* --- RODAPÉ --- */
+    footer {
+      background: #222;
+      color: #eee;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    footer h3 {
+      margin-bottom: 15px;
+      font-size: 1.2em;
+      color: #ff9800;
+    }
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .footer-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.95em;
+    }
+    .footer-item i {
+      font-size: 1.8em;
+      margin-bottom: 8px;
+      color: #ff9800;
+    }
+    .footer-bottom {
+      border-top: 1px solid #444;
+      padding-top: 15px;
+      font-size: 0.85em;
+      color: #aaa;
+    }
     @media (max-width: 600px) {
       header { font-size: 1.4em; }
       .produto img { max-height: 200px; }
+      footer { font-size: 0.9em; }
     }
   </style>
 </head>
@@ -210,7 +250,6 @@
 
   <main>
     <div class="intro-section">
-      <!-- Entrada do nome -->
       <div id="entrada-nome">
         <p>Digite seu nome para participar da surpresa:</p>
         <input type="text" id="nome-usuario" placeholder="Seu nome" style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 80%; max-width: 300px;" />
@@ -218,7 +257,6 @@
         <button onclick="habilitarCaixa()" style="background: #ff6f00; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1em;">Confirmar</button>
       </div>
 
-      <!-- Caixa surpresa -->
       <section id="caixa-surpresa" onclick="abrirCaixa()" role="button" tabindex="0"
         onkeypress="if(event.key==='Enter') abrirCaixa();" style="display: none;">
         <div class="caixa">🎁 Clique aqui!</div>
@@ -247,8 +285,41 @@
     </div>
   </main>
 
-  <div class="carrinho" id="carrinho">Carrinho: 0 itens – R$ 0,00</div>
+  <div class="carrinho" id="carrinho">Carrinho: 0 itens – R$ 0,00</div>
   <div class="toast" id="toast"></div>
+
+  <footer>
+    <h3>🌟 Sua compra segura e garantida 🌟</h3>
+    <div class="footer-container">
+      <div class="footer-item">
+        <i class="fa-solid fa-lock"></i>
+        <p>Site 100% Seguro<br>SSL Ativado</p>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-children"></i>
+        <p>Faixa Etária<br>+3 anos</p>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-certificate"></i>
+        <p>Produtos<br>Originais</p>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-truck-fast"></i>
+        <p>Entrega em até<br>7 dias úteis</p>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-rotate-left"></i>
+        <p>Política de Trocas<br>e Devoluções</p>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-star"></i>
+        <p>+2.365 entregas<br>realizadas com sucesso</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Loja Dia das Crianças - Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
   <script>
     let totalItens = 0, totalValor = 0, descontoAtivo = false, tempoRestante = 600;
@@ -295,7 +366,7 @@
         caixa.style.display = "none";
 
         const msg = document.getElementById("mensagem-desconto");
-        msg.innerHTML = `🎉 <strong>PARABÉNS ${nomeUsuario.toUpperCase()}!</strong> VOCÊ GANHOU O DESCONTO DE 50%! 🎉`;
+        msg.innerHTML = 🎉 <strong>PARABÉNS ${nomeUsuario.toUpperCase()}!</strong> VOCÊ GANHOU O DESCONTO DE 50%! 🎉;
         msg.style.display = "block";
 
         document.getElementById("temporizador").style.display = "block";
@@ -314,55 +385,59 @@
         const card = document.createElement("div");
         card.className = "produto";
         card.innerHTML = `
-          <img src="${p.imagem}" alt="${p.nome}" loading="lazy" />
+          <img src="${p.imagem}" alt="${p.nome}">
           <h3>${p.nome}</h3>
-          <p class="preco-original">R$ ${p.preco.toFixed(2).replace('.', ',')}</p>
-          <p class="preco-desconto">R$ ${precoDesc.replace('.', ',')}</p>
-          <button onclick="adicionarAoCarrinho('${p.nome}', ${precoDesc})">Comprar</button>
+          <p class="preco-original">De: R$ ${p.preco.toFixed(2)}</p>
+          <p class="preco-desconto">Por: R$ ${precoDesc}</p>
+          <button onclick="adicionarCarrinho('${p.nome}', ${precoDesc}, this)">Adicionar ao Carrinho</button>
         `;
         lista.appendChild(card);
       });
     }
 
-    function iniciarTemporizador() {
-      const el = document.getElementById("tempo");
-      const interval = setInterval(() => {
-        if (tempoRestante <= 0) {
-          clearInterval(interval);
+    function adicionarCarrinho(nome, preco, btn) {
+      if (btn.disabled) return;
 
-          document.querySelectorAll(".produto button").forEach(b => {
-            b.disabled = true;
-            b.innerText = "Tempo Esgotado";
-          });
-
-          mostrarToast("⛔ O desconto expirou!");
-          return;
-        }
-
-        const m = String(Math.floor(tempoRestante / 60)).padStart(2, '0');
-        const s = String(tempoRestante % 60).padStart(2, '0');
-        el.textContent = `${m}:${s}`;
-        tempoRestante--;
-      }, 1000);
-    }
-
-    function adicionarAoCarrinho(nome, preco) {
       totalItens++;
       totalValor += preco;
-      atualizarCarrinho();
-      mostrarToast(`✅ ${nome} adicionado ao carrinho!`);
-    }
 
-    function atualizarCarrinho() {
-      document.getElementById("carrinho").innerText = 
-        `Carrinho: ${totalItens} item(s) – R$ ${totalValor.toFixed(2).replace('.', ',')}`;
+      document.getElementById("carrinho").innerText = Carrinho: ${totalItens} itens – R$ ${totalValor.toFixed(2)};
+
+      btn.innerText = "Adicionado!";
+      btn.disabled = true;
+
+      mostrarToast(${nome} foi adicionado ao carrinho!);
     }
 
     function mostrarToast(msg) {
-      const t = document.getElementById("toast");
-      t.innerText = msg;
-      t.classList.add("show");
-      setTimeout(() => t.classList.remove("show"), 2500);
+      const toast = document.getElementById("toast");
+      toast.innerText = msg;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2500);
+    }
+
+    function iniciarTemporizador() {
+      const tempoElem = document.getElementById("tempo");
+      const interval = setInterval(() => {
+        if (tempoRestante <= 0) {
+          clearInterval(interval);
+          tempoElem.innerText = "00:00";
+          document.querySelectorAll(".produto button").forEach(btn => {
+            btn.disabled = true;
+            btn.innerText = "Tempo Expirado";
+          });
+          mostrarToast("⏰ O tempo acabou!");
+          return;
+        }
+
+        tempoRestante--;
+        const min = String(Math.floor(tempoRestante / 60)).padStart(2, "0");
+        const seg = String(tempoRestante % 60).padStart(2, "0");
+        tempoElem.innerText = ${min}:${seg};
+      }, 1000);
     }
   </script>
 </body>
