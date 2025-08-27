@@ -4,7 +4,6 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Promoção Dia das Crianças</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     body {
       font-family: 'Comic Sans MS', Arial, sans-serif;
@@ -18,8 +17,6 @@
       color: #333;
       text-align: center;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
     header {
@@ -35,7 +32,6 @@
     }
 
     main {
-      flex: 1;
       padding: 20px;
       max-width: 1100px;
       margin: auto;
@@ -203,7 +199,7 @@
       color: #555;
     }
 
-    /* --- RODAPÉ --- */
+    /* Rodapé adicionado */
     footer {
       background: #222;
       color: #eee;
@@ -238,18 +234,21 @@
       font-size: 0.85em;
       color: #aaa;
     }
+
     @media (max-width: 600px) {
       header { font-size: 1.4em; }
       .produto img { max-height: 200px; }
-      footer { font-size: 0.9em; }
+      .footer-container { grid-template-columns: 1fr 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <header>🎉 GANHE ATÉ 50% DE DESCONTO! 🎉</header>
 
   <main>
     <div class="intro-section">
+      <!-- Entrada do nome -->
       <div id="entrada-nome">
         <p>Digite seu nome para participar da surpresa:</p>
         <input type="text" id="nome-usuario" placeholder="Seu nome" style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 80%; max-width: 300px;" />
@@ -257,6 +256,7 @@
         <button onclick="habilitarCaixa()" style="background: #ff6f00; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1em;">Confirmar</button>
       </div>
 
+      <!-- Caixa surpresa -->
       <section id="caixa-surpresa" onclick="abrirCaixa()" role="button" tabindex="0"
         onkeypress="if(event.key==='Enter') abrirCaixa();" style="display: none;">
         <div class="caixa">🎁 Clique aqui!</div>
@@ -279,47 +279,47 @@
         <p class="cliente">— Carlos, RJ</p>
       </div>
       <div class="depoamento">
-        <p>"Carrinho RC incrível. Atendimento nota 10 e entrega rápida."</p>
-        <p class="cliente">— Juliana, MG</p>
+        <p>"Patins incrível. Atendimento nota 10 e entrega rápida."</p>
+        <p class="cliente">— Juliana, SP</p>
       </div>
     </div>
   </main>
 
-  <div class="carrinho" id="carrinho">Carrinho: 0 itens – R$ 0,00</div>
-  <div class="toast" id="toast"></div>
-
   <footer>
-    <h3>🌟 Sua compra segura e garantida 🌟</h3>
+    <h3>Confiança e Segurança</h3>
     <div class="footer-container">
       <div class="footer-item">
-        <i class="fa-solid fa-lock"></i>
-        <p>Site 100% Seguro<br>SSL Ativado</p>
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Produtos Originais</span>
       </div>
       <div class="footer-item">
-        <i class="fa-solid fa-children"></i>
-        <p>Faixa Etária<br>+3 anos</p>
+        <i class="fa-solid fa-child"></i>
+        <span>+3 anos</span>
       </div>
       <div class="footer-item">
-        <i class="fa-solid fa-certificate"></i>
-        <p>Produtos<br>Originais</p>
-      </div>
-      <div class="footer-item">
-        <i class="fa-solid fa-truck-fast"></i>
-        <p>Entrega em até<br>7 dias úteis</p>
+        <i class="fa-solid fa-truck"></i>
+        <span>Entrega em 7 dias</span>
       </div>
       <div class="footer-item">
         <i class="fa-solid fa-rotate-left"></i>
-        <p>Política de Trocas<br>e Devoluções</p>
+        <span>Trocas e Devoluções</span>
+      </div>
+      <div class="footer-item">
+        <i class="fa-solid fa-lock"></i>
+        <span>SSL Seguro</span>
       </div>
       <div class="footer-item">
         <i class="fa-solid fa-star"></i>
-        <p>+2.365 entregas<br>realizadas com sucesso</p>
+        <span>+2.365 entregas realizadas</span>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 Loja Dia das Crianças - Todos os direitos reservados.</p>
+      © 2025 Teens & Eletronicos. Todos os direitos reservados.
     </div>
   </footer>
+
+  <div class="carrinho" id="carrinho">Carrinho: 0 itens – R$ 0,00</div>
+  <div class="toast" id="toast"></div>
 
   <script>
     let totalItens = 0, totalValor = 0, descontoAtivo = false, tempoRestante = 600;
@@ -328,14 +328,14 @@
     const produtos = [
       { nome: "Boneco Labubu", preco: 199.00, imagem: "https://down-br.img.susercontent.com/file/br-11134207-7r98o-m9zzn8o7e1q1aa" },
       { nome: "Tablet Samsung", preco: 1499.00, imagem: "https://gazin-images.gazin.com.br/cNBvTxoXDdo6uT5Wqw3FkJ4nzl8=/1920x/filters:format(webp):quality(75)/https://gazin-marketplace.s3.amazonaws.com/midias/imagens/2024/07/tablet-samsung-galaxy-tab-s6-lite-104-64gb-4gb-android-14-sm-p620nzadzto-112407032345.jpg" },
-      { nome: "Bola da Copa 2022", preco: 150.00, imagem: "https://img.odcdn.com.br/wp-content/uploads/2022/07/bola-copa-22.jpg" },
+      { nome: "Bola Copa de 2022", preco: 150.00, imagem: "https://img.odcdn.com.br/wp-content/uploads/2022/07/bola-copa-22.jpg" },
       { nome: "Pista de Skate de Dedo", preco: 75.00, imagem: "https://a-static.mlcdn.com.br/800x600/pista-skate-dedo-profissional-rampa-e-corrimao-com-skate-dm-toys/fastvarejoloja/dmt6686-dellboard/53052402e90354dba997df19b78e5515.jpeg" },
-      { nome: "Quadro do Neymar", preco: 299.90, imagem: "https://m.media-amazon.com/images/I/71YgRiaji1L._UF350,350_QL80_.jpg" },
+      { nome: "Quadro Neymar", preco: 299.90, imagem: "https://m.media-amazon.com/images/I/71YgRiaji1L._UF350,350_QL80_.jpg" },
       { nome: "Carrinho de Controle Remoto", preco: 320.00, imagem: "https://i.zst.com.br/thumbs/12/c/3b/-1347048930.jpg" },
       { nome: "Hoverboard Infantil", preco: 950.00, imagem: "https://m.media-amazon.com/images/I/51zpqiSLytL._UF894,1000_QL80_.jpg" },
       { nome: "Celular Samsung", preco: 2200.00, imagem: "https://planoscelular.claro.com.br/medias/18599-0-zero-300Wx300H-productCard?context=bWFzdGVyfGltYWdlc3w2ODEzN3xpbWFnZS9wbmd8aUdKaUwyaGlZUzg1TlRrME1qUTBORGszTkRNNEx6RTROVGs1WHpCZmVtVnliMTh6TURCWGVETXdNRWhmY0hKdlpIVmpkRU5oY21RfDcyZjliNjg1OTk0NzNiOTI5ZTFkZDJkN2I3NWQzMTU2NDk3MTY5ZTk4NjM4OWExZTkwNWM1Y2Q3YTQ0MzI2OTY" },
-      { nome: "Patinete Eletrônico", preco: 680.00, imagem: "https://www.mymax.ind.br/wp-content/uploads/2020/02/009239_1.jpg" },
-      { nome: "Boobie Goods", preco: 80.00,imagem: "https://a-static.mlcdn.com.br/1500x1500/kit-120-canetinhas-livro-de-colorir-bobbie-goods-ponta-dupla-estojo-50-paginas-estojo-de-colorir-120-canetinhas/mbcomericoatacado/kitcnt120rosa/70d56208f977f12dc898ce1c86d36b81.jpeg" },
+      { nome: "Patinete Elétrico", preco: 680.00, imagem: "https://www.mymax.ind.br/wp-content/uploads/2020/02/009239_1.jpg" },
+      { nome: "Bobbie Goods", preco: 80.00,imagem: "https://a-static.mlcdn.com.br/1500x1500/kit-120-canetinhas-livro-de-colorir-bobbie-goods-ponta-dupla-estojo-50-paginas-estojo-de-colorir-120-canetinhas/mbcomericoatacado/kitcnt120rosa/70d56208f977f12dc898ce1c86d36b81.jpeg" },
       { nome: "Patins", preco: 430.00, imagem: "https://freitasvarejo.vteximg.com.br/arquivos/ids/175986-440-500/16092876001_1.jpg?v=637993807985830000" },
       { nome: "Máscara do Batman", preco: 120.00, imagem: "https://superlegalbrinquedos.vtexassets.com/arquivos/ids/228056/Mascara-Eletronica---Batman-Armor-Up---15-Sons-e-Luzes---DC-Comics---Sunny-1.jpg?v=638422414673770000" },
       { nome: "Boneco do Coringa", preco: 220.00, imagem: "https://http2.mlstatic.com/D_NQ_NP_949891-MLB89275608717_082025-O-boneco-coringa-estatua-de-resina-joker-23cm.webp" },
@@ -366,7 +366,7 @@
         caixa.style.display = "none";
 
         const msg = document.getElementById("mensagem-desconto");
-        msg.innerHTML = 🎉 <strong>PARABÉNS ${nomeUsuario.toUpperCase()}!</strong> VOCÊ GANHOU O DESCONTO DE 50%! 🎉;
+        msg.innerHTML = `🎉 <strong>PARABÉNS ${nomeUsuario.toUpperCase()}!</strong> VOCÊ GANHOU O DESCONTO DE 50%! 🎉`;
         msg.style.display = "block";
 
         document.getElementById("temporizador").style.display = "block";
@@ -385,59 +385,55 @@
         const card = document.createElement("div");
         card.className = "produto";
         card.innerHTML = `
-          <img src="${p.imagem}" alt="${p.nome}">
+          <img src="${p.imagem}" alt="${p.nome}" loading="lazy" />
           <h3>${p.nome}</h3>
-          <p class="preco-original">De: R$ ${p.preco.toFixed(2)}</p>
-          <p class="preco-desconto">Por: R$ ${precoDesc}</p>
-          <button onclick="adicionarCarrinho('${p.nome}', ${precoDesc}, this)">Adicionar ao Carrinho</button>
+          <p class="preco-original">R$ ${p.preco.toFixed(2).replace('.', ',')}</p>
+          <p class="preco-desconto">R$ ${precoDesc.replace('.', ',')}</p>
+          <button onclick="adicionarAoCarrinho('${p.nome}', ${precoDesc})">Comprar</button>
         `;
         lista.appendChild(card);
       });
     }
 
-    function adicionarCarrinho(nome, preco, btn) {
-      if (btn.disabled) return;
-
-      totalItens++;
-      totalValor += preco;
-
-      document.getElementById("carrinho").innerText = Carrinho: ${totalItens} itens – R$ ${totalValor.toFixed(2)};
-
-      btn.innerText = "Adicionado!";
-      btn.disabled = true;
-
-      mostrarToast(${nome} foi adicionado ao carrinho!);
-    }
-
-    function mostrarToast(msg) {
-      const toast = document.getElementById("toast");
-      toast.innerText = msg;
-      toast.classList.add("show");
-
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 2500);
-    }
-
     function iniciarTemporizador() {
-      const tempoElem = document.getElementById("tempo");
+      const el = document.getElementById("tempo");
       const interval = setInterval(() => {
         if (tempoRestante <= 0) {
           clearInterval(interval);
-          tempoElem.innerText = "00:00";
-          document.querySelectorAll(".produto button").forEach(btn => {
-            btn.disabled = true;
-            btn.innerText = "Tempo Expirado";
+
+          document.querySelectorAll(".produto button").forEach(b => {
+            b.disabled = true;
+            b.innerText = "Tempo Esgotado";
           });
-          mostrarToast("⏰ O tempo acabou!");
+
+          mostrarToast("⛔ O desconto expirou!");
           return;
         }
 
+        const m = String(Math.floor(tempoRestante / 60)).padStart(2, '0');
+        const s = String(tempoRestante % 60).padStart(2, '0');
+        el.textContent = `${m}:${s}`;
         tempoRestante--;
-        const min = String(Math.floor(tempoRestante / 60)).padStart(2, "0");
-        const seg = String(tempoRestante % 60).padStart(2, "0");
-        tempoElem.innerText = ${min}:${seg};
       }, 1000);
+    }
+
+    function adicionarAoCarrinho(nome, preco) {
+      totalItens++;
+      totalValor += preco;
+      atualizarCarrinho();
+      mostrarToast(`✅ ${nome} adicionado ao carrinho!`);
+    }
+
+    function atualizarCarrinho() {
+      document.getElementById("carrinho").innerText = 
+        `Carrinho: ${totalItens} item(s) – R$ ${totalValor.toFixed(2).replace('.', ',')}`;
+    }
+
+    function mostrarToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2500);
     }
   </script>
 </body>
