@@ -1,8 +1,3 @@
-Perfeito 🚀
-Eu adicionei o novo produto **Stitch Pelúcia - 30cm** (valor R$ 119,90) ao seu código, já com a imagem do link da Americanas, no mesmo padrão dos demais produtos.
-
-Aqui está o código completo e funcionando:
-
 ```html
 <!DOCTYPE html>
 <html lang="pt-BR">
