@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -136,26 +135,18 @@
     background: #aaa;
     cursor: not-allowed;
   }
-  .carrinho, .toast {
+  .toast {
     position: fixed;
     right: 20px;
+    bottom: 20px;
+    background: #ff9800;
+    color: #fff;
     padding: 12px 18px;
     border-radius: 12px;
     font-weight: bold;
     z-index: 999;
     max-width: 90vw;
     word-wrap: break-word;
-  }
-  .carrinho {
-    bottom: 20px;
-    background: #388e3c;
-    color: #fff;
-    font-size: 0.95em;
-  }
-  .toast {
-    bottom: 70px;
-    background: #ff9800;
-    color: #fff;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.5s, transform 0.5s;
@@ -279,12 +270,12 @@
   <div class="footer-bottom">© 2025 Teens & Eletronicos. Todos os direitos reservados.</div>
 </footer>
 
-<div class="carrinho" id="carrinho">Carrinho: 0 itens – R$ 0,00</div>
 <div class="toast" id="toast"></div>
 
 <script>
-  let totalItens = 0, totalValor = 0, descontoAtivo = false, tempoRestante = 600;
+  let descontoAtivo = false, tempoRestante = 600;
   let nomeUsuario = "";
+  let descontoUsado = false; // controle do CPF (apenas 1 brinquedo)
 
   const produtos = [
     { nome: "Boneco Labubu", preco: 199.00, imagem: "https://down-br.img.susercontent.com/file/br-11134207-7r98o-m9zzn8o7e1q1aa" },
@@ -297,12 +288,14 @@
     { nome: "Celular Samsung", preco: 2200.00, imagem: "https://t34114.vtexassets.com/arquivos/ids/244867/smartphone-samsung-galaxy-a16-lte-128gb-4gb-ram-tela-6-7-nfc-ip54-camera-de-ate-50mp-bateria-5000-mah-e-dual-chip-verde-claro-1.jpg?v=638708210592370000" },
     { nome: "Patinete Elétrico", preco: 680.00, imagem: "https://www.mymax.ind.br/wp-content/uploads/2020/02/009239_1.jpg" },
     { nome: "Bobbie Goods", preco: 80.00, imagem: "https://a-static.mlcdn.com.br/1500x1500/kit-120-canetinhas-livro-de-colorir-bobbie-goods-ponta-dupla-estojo-50-paginas-estojo-de-colorir-120-canetinhas/mbcomericoatacado/kitcnt120rosa/70d56208f977f12dc898ce1c86d36b81.jpeg" },
-     { nome: "Stitch Pelúcia - 30cm", preco: 119.90, imagem: "https://www.americanas.com.br/_next/image?url=https%3A%2F%2Famericanas.vtexassets.com%2Farquivos%2Fids%2F31411475%2FPELUCIADISNEYSOFTSTITCH30CMF01808.jpg%3Fv%3D638836036964770000&w=768&q=90" }
-],
     { nome: "Patins", preco: 430.00, imagem: "https://freitasvarejo.vteximg.com.br/arquivos/ids/175986-440-500/16092876001_1.jpg?v=637993807985830000" },
     { nome: "Máscara do Batman", preco: 120.00, imagem: "https://superlegalbrinquedos.vtexassets.com/arquivos/ids/228056/Mascara-Eletronica---Batman-Armor-Up---15-Sons-e-Luzes---DC-Comics---Sunny-1.jpg?v=638422414673770000" },
     { nome: "Boneco do Coringa", preco: 220.00, imagem: "https://http2.mlstatic.com/D_NQ_NP_949891-MLB89275608717_082025-O-boneco-coringa-estatua-de-resina-joker-23cm.webp" },
     { nome: "Caixa de Som JBL", preco: 560.00, imagem: "https://d3alv7ekdacjys.cloudfront.net/Custom/Content/Products/10/65/1065174_caixa-de-som-jbl-boombox-portatil-com-bluetooth-a-prova-dagua-camuflado_m1_636911497357161076.webp" },
+    { nome: "Stitch Pelúcia - 30cm", preco: 119.90, imagem: "https://www.americanas.com.br/_next/image?url=https%3A%2F%2Famericanas.vtexassets.com%2Farquivos%2Fids%2F31411475%2FPELUCIADISNEYSOFTSTITCH30CMF01808.jpg%3Fv%3D638836036964770000&w=768&q=90" }
+  ];
+
+  function habilitarCaixa() {
     const inNome = document.getElementById("nome-usuario");
     nomeUsuario = inNome.value.trim();
     if (!nomeUsuario) return alert("Por favor, digite seu nome para continuar.");
@@ -318,7 +311,7 @@
     setTimeout(() => {
       caixa.style.display = "none";
       const msg = document.getElementById("mensagem-desconto");
-      msg.innerHTML = `🎉 <strong>PARABÉNS ${nomeUsuario.toUpperCase()}!</strong> VOCÊ GANHOU O DESCONTO DE 50%! 🎉`;
+      msg.innerHTML = `🎉 <strong>PARABÉNS ${nomeUsuario.toUpperCase()}!</strong> VOCÊ GANHOU O DESCONTO DE 50%! 🎉<br><small>Válido apenas para 1 brinquedo por CPF</small>`;
       msg.style.display = "block";
       document.getElementById("temporizador").style.display = "block";
       carregarProdutos();
@@ -337,5 +330,54 @@
         <img src="${p.imagem}" alt="${p.nome}" loading="lazy" />
         <h3>${p.nome}</h3>
         <p class="preco-original">R$ ${p.preco.toFixed(2).replace('.', ',')}</p>
-        <p class="preco-desconto">R$ ${precoDesc.replace('.', ',')}</p
-```
+        <p class="preco-desconto">R$ ${precoDesc.replace('.', ',')}</p>
+        <button onclick="comprarProduto('${p.nome}', ${precoDesc}, event)">Comprar</button>
+      `;
+      lista.appendChild(div);
+    });
+  }
+
+  function iniciarTemporizador() {
+    const el = document.getElementById("tempo");
+    const msg = document.getElementById("mensagem-desconto");
+    const intervalo = setInterval(() => {
+      if (tempoRestante <= 0) {
+        clearInterval(intervalo);
+        document.getElementById("lista-produtos").style.display = "none";
+        msg.innerHTML = "<br><small>❌ O desconto foi encerrado.</small>";
+        mostrarToast("⛔ O desconto expirou!");
+        return;
+      }
+      const m = String(Math.floor(tempoRestante / 60)).padStart(2, '0');
+      const s = String(tempoRestante % 60).padStart(2, '0');
+      el.textContent = `${m}:${s}`;
+      tempoRestante--;
+    }, 1000);
+  }
+
+  function comprarProduto(nome, preco, event) {
+    if (descontoUsado) {
+      mostrarToast("⚠️ O desconto só é válido para 1 brinquedo por CPF!");
+      return;
+    }
+    const embalar = confirm(`Você deseja embalar o produto "${nome}" para presente?`);
+    descontoUsado = true;
+    event.target.disabled = true;
+    event.target.innerText = "Comprado!";
+    if (embalar) {
+      mostrarToast(`🎁 ${nome} comprado com embalagem para presente!`);
+    } else {
+      mostrarToast(`✅ ${nome} comprado com sucesso!`);
+    }
+  }
+
+  function mostrarToast(msg) {
+    const t = document.getElementById("toast");
+    t.innerText = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 3000);
+  }
+</script>
+
+</body>
+</html>
