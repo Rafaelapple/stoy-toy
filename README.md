@@ -297,14 +297,12 @@
     { nome: "Celular Samsung", preco: 2200.00, imagem: "https://t34114.vtexassets.com/arquivos/ids/244867/smartphone-samsung-galaxy-a16-lte-128gb-4gb-ram-tela-6-7-nfc-ip54-camera-de-ate-50mp-bateria-5000-mah-e-dual-chip-verde-claro-1.jpg?v=638708210592370000" },
     { nome: "Patinete Elétrico", preco: 680.00, imagem: "https://www.mymax.ind.br/wp-content/uploads/2020/02/009239_1.jpg" },
     { nome: "Bobbie Goods", preco: 80.00, imagem: "https://a-static.mlcdn.com.br/1500x1500/kit-120-canetinhas-livro-de-colorir-bobbie-goods-ponta-dupla-estojo-50-paginas-estojo-de-colorir-120-canetinhas/mbcomericoatacado/kitcnt120rosa/70d56208f977f12dc898ce1c86d36b81.jpeg" },
+     { nome: "Stitch Pelúcia - 30cm", preco: 119.90, imagem: "https://www.americanas.com.br/_next/image?url=https%3A%2F%2Famericanas.vtexassets.com%2Farquivos%2Fids%2F31411475%2FPELUCIADISNEYSOFTSTITCH30CMF01808.jpg%3Fv%3D638836036964770000&w=768&q=90" }
+],
     { nome: "Patins", preco: 430.00, imagem: "https://freitasvarejo.vteximg.com.br/arquivos/ids/175986-440-500/16092876001_1.jpg?v=637993807985830000" },
     { nome: "Máscara do Batman", preco: 120.00, imagem: "https://superlegalbrinquedos.vtexassets.com/arquivos/ids/228056/Mascara-Eletronica---Batman-Armor-Up---15-Sons-e-Luzes---DC-Comics---Sunny-1.jpg?v=638422414673770000" },
     { nome: "Boneco do Coringa", preco: 220.00, imagem: "https://http2.mlstatic.com/D_NQ_NP_949891-MLB89275608717_082025-O-boneco-coringa-estatua-de-resina-joker-23cm.webp" },
     { nome: "Caixa de Som JBL", preco: 560.00, imagem: "https://d3alv7ekdacjys.cloudfront.net/Custom/Content/Products/10/65/1065174_caixa-de-som-jbl-boombox-portatil-com-bluetooth-a-prova-dagua-camuflado_m1_636911497357161076.webp" },
-    { nome: "Stitch Pelúcia - 30cm", preco: 119.90, imagem: "https://www.americanas.com.br/_next/image?url=https%3A%2F%2Famericanas.vtexassets.com%2Farquivos%2Fids%2F31411475%2FPELUCIADISNEYSOFTSTITCH30CMF01808.jpg%3Fv%3D638836036964770000&w=768&q=90" }
-  ];
-
-  function habilitarCaixa() {
     const inNome = document.getElementById("nome-usuario");
     nomeUsuario = inNome.value.trim();
     if (!nomeUsuario) return alert("Por favor, digite seu nome para continuar.");
