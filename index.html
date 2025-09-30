@@ -10,14 +10,14 @@
     font-family: 'Arial', sans-serif;
     margin: 0; padding: 0;
     background:
-      linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
-      url('https://img.freepik.com/fotos-gratis/criancas-brincando-na-grama_854912.jpg') no-repeat center center fixed;
+      linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+      url('https://img.freepik.com/fotos-gratis/criancas-brincando-na-grama_854912-1.jpg?w=1060&t=st=1759342716~exp=1759343316~hmac=8a15283a8365b1c78a0b0f43071c38c3b99c5e84f22f4c0642e1b8455b6a2f71')
+      no-repeat center center fixed;
     background-size: cover;
-    color: #222;
+    color: #333;
     text-align: center;
     min-height: 100vh;
   }
-
   header {
     background: #002366;
     color: #fff;
@@ -25,38 +25,27 @@
     font-size: 2em;
     font-weight: bold;
   }
-
-  main { padding: 20px; max-width: 1100px; margin: auto; }
-
+  main { padding: 20px; max-width: 1200px; margin: auto; }
   .intro-section {
     background: rgba(255,255,255,0.95);
     padding: 30px 20px;
     border-radius: 12px;
     margin-bottom: 18px;
   }
-
   .intro-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center; }
   .intro-row input { padding:10px;border-radius:8px;border:1px solid #ccc;width:220px;max-width:90%; }
   .intro-row .btn { background:#002366;color:white;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;font-size:1em; }
-
   #caixa-surpresa { cursor:pointer; display:inline-block; margin-top:12px; }
   #caixa-surpresa .caixa {
-    width:160px;height:160px;
-    background: linear-gradient(135deg,#002366,#1E90FF);
-    border-radius:15px;
-    display:flex; align-items:center; justify-content:center;
-    color:#fff; font-size:1.4em; font-weight:bold;
-    box-shadow:0 6px 20px rgba(0,0,0,0.3);
-    user-select:none;
+    width:160px;height:160px;background:conic-gradient(#1e3a8a,#2563eb,#3b82f6,#1e3a8a);
+    border-radius:15px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.2em;
+    font-weight:bold; box-shadow:0 6px 15px rgba(0,0,0,0.2); user-select:none;
     transition: transform 0.3s ease;
   }
+  #caixa-surpresa.spin .caixa { animation: spin 3s ease-in-out; }
+  @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
 
-  #caixa-surpresa.spin .caixa {
-    animation: spin3 3s ease-in-out forwards;
-  }
-  @keyframes spin3 { 0%{transform:rotate(0)} 50%{transform:rotate(720deg)} 100%{transform:rotate(1080deg)} }
-
-  #mensagem-desconto { display:none; font-size:1.2em; font-weight:bold; margin-top:14px; color:#1E90FF; }
+  #mensagem-desconto { display:none; font-size:1.2em; font-weight:bold; margin-top:14px; color:#388e3c; }
   #temporizador { display:none; font-size:1.05em; margin-top:8px; color:#d32f2f; }
 
   .produtos {
@@ -80,76 +69,59 @@
   .produto img { width:100%; height:auto; max-height:220px; object-fit:contain; border-radius:8px; margin-bottom:12px; background:#fff; padding:6px; box-sizing:border-box; }
   .preco-original { text-decoration:line-through; color:#777; font-size:0.95em; margin:4px 0; }
   .preco-desconto { color:#d32f2f; font-size:1.25em; font-weight:bold; margin:4px 0 10px; }
-  .produto button { background:#1E90FF;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:1em;width:100%;max-width:200px; }
+  .produto button { background:#002366;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:1em;width:100%;max-width:200px; }
   .produto button:disabled { background:#999; cursor:not-allowed; }
 
   .toast {
     position: fixed; right:20px; bottom:20px;
-    background:#002366; color:#fff; padding:12px 16px; border-radius:10px; font-weight:bold; z-index:9999;
+    background:#ff9800; color:#fff; padding:12px 16px; border-radius:10px; font-weight:bold; z-index:9999;
     opacity:0; transform:translateY(20px); transition:opacity .35s, transform .35s;
     max-width:90vw; word-wrap:break-word; text-align:left;
   }
   .toast.show { opacity:1; transform:translateY(0); }
 
-  .depoimentos { margin:36px 0; text-align:left; }
-  .depoimento { background: rgba(255,255,255,0.95); border-left:4px solid #1E90FF; padding:12px; margin-bottom:12px; border-radius:6px; }
-  .depoimento .cliente { font-weight:bold; color:#555; }
-
-  footer { background:#002366; color:#eee; padding:24px 20px; text-align:center; margin-top:18px; }
-  footer h3 { color:#1E90FF; margin-bottom:12px; }
+  footer { background:#222; color:#eee; padding:24px 20px; text-align:center; margin-top:18px; }
+  footer h3 { color:#002366; margin-bottom:12px; }
 
   @media (max-width:700px){
     .produtos { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
-    header { font-size:1.6em; }
+    header { font-size:1.4em; }
   }
 </style>
 </head>
 <body>
-<header>Teens & Eletrônicos 🎉 Promoção Dia das Crianças</header>
+<header>🎉 Teens & Eletrônicos - GANHE ATÉ 50% DE DESCONTO! 🎉</header>
 
 <main>
-  <div class="intro-section" aria-labelledby="intro-title">
-    <h2 id="intro-title">Participe da Surpresa</h2>
+  <div class="intro-section">
+    <h2>Participe da Surpresa</h2>
     <div class="intro-row">
-      <input id="nome-usuario" type="text" placeholder="Seu nome (ex.: João Silva)" aria-label="Nome do usuário" />
-      <input id="cpf-usuario" type="text" placeholder="CPF (somente números)" aria-label="CPF do usuário" maxlength="14" />
+      <input id="nome-usuario" type="text" placeholder="Seu nome (ex.: João Silva)" />
+      <input id="cpf-usuario" type="text" placeholder="CPF (somente números)" maxlength="14"/>
       <button class="btn" onclick="habilitarCaixa()">Confirmar</button>
     </div>
     <small style="display:block;margin-top:8px;color:#555;">(Ao abrir a caixa, se ganhar o desconto ele será válido apenas para 1 brinquedo por CPF)</small>
 
-    <section id="caixa-surpresa" role="button" tabindex="0" onclick="abrirCaixa()" onkeypress="if(event.key==='Enter') abrirCaixa();" aria-label="Caixa surpresa" style="display:none;margin-top:12px;">
+    <section id="caixa-surpresa" onclick="abrirCaixa()">
       <div class="caixa">🎁 Clique aqui!</div>
     </section>
 
-    <div id="mensagem-desconto" role="status"></div>
+    <div id="mensagem-desconto"></div>
     <div id="temporizador">⏰ Tempo restante: <span id="tempo">10:00</span></div>
   </div>
 
-  <div id="lista-produtos" class="produtos" aria-live="polite"></div>
-
-  <div class="depoimentos">
-    <h3>Clientes Satisfeitos:</h3>
-    <div class="depoimento"><p>"Chegou rapidinho e tudo certinho. Minha filha ama o Labubu!"</p><p class="cliente">— Mariana, SP</p></div>
-    <div class="depoimento"><p>"Patinete excelente, entrega segura. Super recomendo!"</p><p class="cliente">— Carlos, RJ</p></div>
-    <div class="depoimento"><p>"Patins incrível, veio da cor errada mas trocaram em menos de 7 dias. Atendimento nota 10."</p><p class="cliente">— Juliana, SP</p></div>
-  </div>
+  <div id="lista-produtos" class="produtos"></div>
 </main>
 
 <footer>
   <h3>Confiança e Segurança</h3>
-  <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;">
-    <div style="text-align:center;color:#ddd;"><i class="fa-solid fa-shield-halved" style="color:#1E90FF;font-size:20px"></i><div>Produtos Originais</div></div>
-    <div style="text-align:center;color:#ddd;"><i class="fa-solid fa-child" style="color:#1E90FF;font-size:20px"></i><div>+3 anos</div></div>
-    <div style="text-align:center;color:#ddd;"><i class="fa-solid fa-truck" style="color:#1E90FF;font-size:20px"></i><div>Entrega em 7 dias</div></div>
-  </div>
-  <div style="margin-top:12px;color:#aaa;font-size:0.9em;">© 2025 Teens & Eletrônicos. Todos os direitos reservados.</div>
 </footer>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast"></div>
 
 <script>
   let descontoAtivo = false;
-  let tempoRestante = 600;
+  let tempoRestante = 600; 
   let nomeUsuario = "";
   let cpfUsuario = "";
   let timerInterval = null;
@@ -172,13 +144,24 @@
     { nome: "Stitch Pelúcia - 30cm", preco: 119.90, imagem: "https://www.americanas.com.br/_next/image?url=https%3A%2F%2Famericanas.vtexassets.com%2Farquivos%2Fids%2F31411475%2FPELUCIADISNEYSOFTSTITCH30CMF01808.jpg%3Fv%3D638836036964770000&w=768&q=90" },
     { nome: "Cozinha da Barbie", preco: 128.90, imagem: "https://http2.mlstatic.com/D_NQ_NP_779458-MLB52539244121_112022-O.jpg" },
     { nome: "Acampamento da Barbie", preco: 478.90, imagem: "https://http2.mlstatic.com/D_NQ_NP_980198-MLA91546267440_092025-O.jpg" },
-    { nome: "Futebol de Botão", preco: 254.90, imagem: "https://i.ibb.co/6R1K0Gm/futebol-botao.jpg" } 
+    { nome: "Futebol de botão", preco: 254.90, imagem: "https://http2.mlstatic.com/D_NQ_NP_603090-MLB76004239711_042024-O-kit-futebol-de-boto-completo-campo-jogo-de-botoes-trave.webp" }
   ];
 
-  function formatMoneyBR(valor) { return 'R$ ' + valor.toFixed(2).replace('.', ','); }
-  function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2900); }
+  function formatMoneyBR(valor) {
+    return 'R$ ' + valor.toFixed(2).replace('.', ',');
+  }
 
-  function validarCPFSimples(text){ return text.replace(/\D/g,'').length === 11; }
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.innerText = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2900);
+  }
+
+  function validarCPFSimples(text) {
+    const digits = text.replace(/\D/g, '');
+    return digits.length === 11;
+  }
 
   function habilitarCaixa() {
     const elNome = document.getElementById('nome-usuario');
@@ -186,13 +169,17 @@
     const nome = (elNome.value || '').trim();
     const cpfRaw = (elCpf.value || '').trim();
     const cpf = cpfRaw.replace(/\D/g, '');
+
     if (!nome) { alert('Por favor, digite seu nome.'); elNome.focus(); return; }
     if (!validarCPFSimples(cpfRaw)) { alert('Por favor, digite um CPF válido com 11 dígitos.'); elCpf.focus(); return; }
-    nomeUsuario = nome; cpfUsuario = cpf;
+
+    nomeUsuario = nome;
+    cpfUsuario = cpf; 
+
     document.querySelector('.intro-section').innerHTML = `
       <div style="background:transparent;padding:8px;">
         <div style="font-weight:bold;margin-bottom:6px;">Olá, ${nomeUsuario} — CPF: ${cpfUsuario}</div>
-        <div id="caixa-surpresa" role="button" tabindex="0" onclick="abrirCaixa()" onkeypress="if(event.key==='Enter') abrirCaixa();" aria-label="Caixa surpresa">
+        <div id="caixa-surpresa" onclick="abrirCaixa()">
           <div class="caixa">🎁 Clique aqui!</div>
         </div>
         <div id="mensagem-desconto"></div>
@@ -203,49 +190,78 @@
   }
 
   function abrirCaixa() {
-    if(descontoAtivo) return;
+    if (descontoAtivo) return;
     descontoAtivo = true;
     const caixaWrapper = document.getElementById('caixa-surpresa');
-    if(caixaWrapper) caixaWrapper.classList.add('spin');
-    setTimeout(()=>{
-      if(caixaWrapper) caixaWrapper.style.display='none';
-      const msgEl=document.getElementById('mensagem-desconto');
-      if(msgEl){
-        msgEl.innerHTML=`🎉 <strong>PARABÉNS ${nomeUsuario.toUpperCase()}!</strong> VOCÊ GANHOU O DESCONTO DE 50%!<br><small>Válido apenas para <strong>1 brinquedo por CPF</strong>.</small>`;
-        msgEl.style.display='block';
+    if (caixaWrapper) caixaWrapper.classList.add('spin');
+    setTimeout(() => {
+      if (caixaWrapper) caixaWrapper.style.display = 'none';
+      const msgEl = document.getElementById('mensagem-desconto');
+      if (msgEl) {
+        msgEl.innerHTML = `🎉 <strong>PARABÉNS ${nomeUsuario.toUpperCase()}!</strong> VOCÊ GANHOU O DESCONTO DE 50%! <br><small>Válido apenas para <strong>1 brinquedo por CPF</strong>.</small>`;
+        msgEl.style.display = 'block';
       }
-      document.getElementById('temporizador').style.display='block';
+      document.getElementById('temporizador').style.display = 'block';
       carregarProdutos();
       iniciarTemporizador();
-    }, 3100);
+    }, 1200);
   }
 
-  function carregarProdutos(){
+  function carregarProdutos() {
     const lista = document.getElementById('lista-produtos');
-    lista.innerHTML=''; lista.style.display='grid';
-    produtos.forEach((p, idx)=>{
-      const precoDesc=(p.preco*0.5).toFixed(2);
-      const div=document.createElement('div');
-      div.className='produto';
-      div.innerHTML=`
-        <img src="${p.imagem}" alt="${p.nome}" />
-        <div>${p.nome}</div>
-        <div class="preco-original">${formatMoneyBR(p.preco)}</div>
-        <div class="preco-desconto">${formatMoneyBR(p.preco*0.5)}</div>
-        <button onclick="showToast('Produto ${p.nome} adicionado ao carrinho!')">Comprar</button>
+    lista.innerHTML = '';
+    lista.style.display = 'grid';
+    produtos.forEach((p, idx) => {
+      const precoDesc = (p.preco * 0.5).toFixed(2);
+      const div = document.createElement('div');
+      div.className = 'produto';
+      div.innerHTML = `
+        <img src="${p.imagem}" alt="${p.nome}" loading="lazy" />
+        <h3 style="margin:6px 0">${p.nome}</h3>
+        <p class="preco-original">${formatMoneyBR(p.preco)}</p>
+        <p class="preco-desconto">${formatMoneyBR(parseFloat(precoDesc))}</p>
+        <button id="btn-prod-${idx}" onclick="comprarProduto(${idx}, event)">Comprar</button>
       `;
       lista.appendChild(div);
     });
   }
 
-  function iniciarTemporizador(){
+  function iniciarTemporizador() {
+    clearInterval(timerInterval);
     const el = document.getElementById('tempo');
-    timerInterval=setInterval(()=>{
-      if(tempoRestante<=0){ clearInterval(timerInterval); showToast('O desconto expirou!'); document.querySelectorAll('.preco-desconto').forEach(e=>e.innerText='R$ 0,00'); return; }
+    if (!el) return;
+    el.textContent = '10:00';
+    tempoRestante = 600;
+    timerInterval = setInterval(() => {
+      if (tempoRestante <= 0) {
+        clearInterval(timerInterval);
+        descontoAtivo = false;
+        document.querySelectorAll('.produto button').forEach(btn => {
+          if (!btn.disabled) { btn.disabled = true; btn.innerText = 'Tempo Esgotado'; }
+        });
+        const msgEl = document.getElementById('mensagem-desconto');
+        if (msgEl) msgEl.innerHTML += `<br><small>❌ O desconto foi encerrado.</small>`;
+        showToast('⛔ O desconto expirou!');
+        return;
+      }
+      const m = String(Math.floor(tempoRestante / 60)).padStart(2, '0');
+      const s = String(tempoRestante % 60).padStart(2, '0');
+      el.textContent = `${m}:${s}`;
       tempoRestante--;
-      let min=Math.floor(tempoRestante/60); let seg=tempoRestante%60;
-      el.innerText=`${min.toString().padStart(2,'0')}:${seg.toString().padStart(2,'0')}`;
-    },1000);
+    }, 1000);
+  }
+
+  function comprarProduto(index, event) {
+    const produto = produtos[index];
+    const btn = event.target;
+    if (!produto) return;
+    const precoOriginal = produto.preco;
+    const precoComDesconto = +(produto.preco * 0.5).toFixed(2);
+    const key = 'desconto_claimed_' + cpfUsuario;
+    if (localStorage.getItem(key)) { showToast('⚠ Você já utilizou o desconto!'); return; }
+    showToast(`✅ Produto ${produto.nome} adicionado ao carrinho com desconto de 50%!`);
+    btn.disabled = true;
+    localStorage.setItem(key, 'true');
   }
 </script>
 </body>
