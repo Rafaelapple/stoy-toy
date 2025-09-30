@@ -5,10 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Promoção Dia das Crianças</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
   body {
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: 'Comic Sans MS', Arial, sans-serif;
     margin: 0; padding: 0;
     background:
       linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
@@ -20,7 +19,7 @@
     min-height: 100vh;
   }
   header {
-    background: #4169E1cc;
+    background: #ff6f00cc;
     color: #fff;
     padding: 25px 15px;
     font-size: 1.8em;
@@ -39,17 +38,17 @@
   }
   .intro-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center; }
   .intro-row input { padding:10px;border-radius:8px;border:1px solid #ccc;width:220px;max-width:90%; }
-  .intro-row .btn { background:#4169E1;color:white;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;font-size:1em; }
-  #caixa-surpresa { cursor:pointer; display:inline-block; margin-top:12px; }
+  .intro-row .btn { background:#ff6f00;color:white;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;font-size:1em; }
+  #caixa-surpresa { cursor:pointer; display:none; margin-top:12px; }
   #caixa-surpresa .caixa {
-    width:160px;height:160px;background:conic-gradient(#87a9ff,#4169E1,#1e40af,#87a9ff);
+    width:160px;height:160px;background:conic-gradient(#ffca28,#ff8f00,#f4511e,#ffca28);
     border-radius:15px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.2em;
     font-weight:bold; box-shadow:0 6px 15px rgba(0,0,0,0.2); user-select:none;
   }
   #caixa-surpresa.spin .caixa { animation: spin 3s ease-in-out; }
   @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
 
-  #mensagem-desconto { display:none; font-size:1.2em; font-weight:bold; margin-top:14px; color:#1e40af; }
+  #mensagem-desconto { display:none; font-size:1.2em; font-weight:bold; margin-top:14px; color:#388e3c; }
   #temporizador { display:none; font-size:1.05em; margin-top:8px; color:#d32f2f; }
 
   .produtos {
@@ -60,37 +59,36 @@
     align-items:start;
   }
   .produto {
-    background: rgba(255,255,255,0.98);
-    border: 2px solid #4169E1;
-    border-radius:16px;
+    background: rgba(255,255,255,0.95);
+    border: 3px dashed #ff6f00;
+    border-radius:12px;
     padding:18px;
     display:flex;
     flex-direction:column;
     align-items:center;
     transition: transform .25s, box-shadow .25s;
-    box-shadow:0 4px 10px rgba(0,0,0,0.08);
   }
-  .produto:hover { transform: translateY(-6px); box-shadow:0 8px 18px rgba(0,0,0,0.15); }
-  .produto img { width:100%; height:auto; max-height:220px; object-fit:contain; border-radius:12px; margin-bottom:12px; background:#fff; padding:6px; box-sizing:border-box; }
+  .produto:hover { transform: translateY(-6px); box-shadow:0 8px 18px rgba(0,0,0,0.12); }
+  .produto img { width:100%; height:auto; max-height:220px; object-fit:contain; border-radius:8px; margin-bottom:12px; background:#fff; padding:6px; box-sizing:border-box; }
   .preco-original { text-decoration:line-through; color:#777; font-size:0.95em; margin:4px 0; }
   .preco-desconto { color:#d32f2f; font-size:1.25em; font-weight:bold; margin:4px 0 10px; }
-  .produto button { background:#4169E1;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:1em;width:100%;max-width:200px; }
+  .produto button { background:#d32f2f;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:1em;width:100%;max-width:200px; }
   .produto button:disabled { background:#999; cursor:not-allowed; }
 
   .toast {
     position: fixed; right:20px; bottom:20px;
-    background:#4169E1; color:#fff; padding:12px 16px; border-radius:10px; font-weight:bold; z-index:9999;
+    background:#ff9800; color:#fff; padding:12px 16px; border-radius:10px; font-weight:bold; z-index:9999;
     opacity:0; transform:translateY(20px); transition:opacity .35s, transform .35s;
     max-width:90vw; word-wrap:break-word; text-align:left;
   }
   .toast.show { opacity:1; transform:translateY(0); }
 
   .depoimentos { margin:36px 0; text-align:left; }
-  .depoimento { background: rgba(255,255,255,0.95); border-left:4px solid #4169E1; padding:12px; margin-bottom:12px; border-radius:6px; }
+  .depoimento { background: rgba(255,255,255,0.95); border-left:4px solid #388e3c; padding:12px; margin-bottom:12px; border-radius:6px; }
   .depoimento .cliente { font-weight:bold; color:#555; }
 
   footer { background:#222; color:#eee; padding:24px 20px; text-align:center; margin-top:18px; }
-  footer h3 { color:#4169E1; margin-bottom:12px; }
+  footer h3 { color:#ff9800; margin-bottom:12px; }
 
   @media (max-width:700px){
     .produtos { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
@@ -104,18 +102,20 @@
 <main>
   <div class="intro-section" aria-labelledby="intro-title">
     <h2 id="intro-title">Participe da Surpresa</h2>
-    <div class="intro-row">
+    <div class="intro-row" id="entrada-nome">
       <input id="nome-usuario" type="text" placeholder="Seu nome (ex.: João Silva)" aria-label="Nome do usuário" />
+      <input id="cpf-usuario" type="text" placeholder="CPF (somente números)" aria-label="CPF do usuário" maxlength="14" />
       <button class="btn" onclick="habilitarCaixa()">Confirmar</button>
     </div>
+    <small style="display:block;margin-top:8px;color:#555;">(Ao abrir a caixa, se ganhar o desconto ele será válido apenas para 1 brinquedo por CPF)</small>
+
+    <section id="caixa-surpresa" role="button" tabindex="0" onclick="abrirCaixa()" onkeypress="if(event.key==='Enter') abrirCaixa();" aria-label="Caixa surpresa">
+      <div class="caixa">🎁 Clique aqui!</div>
+    </section>
+
+    <div id="mensagem-desconto" role="status"></div>
+    <div id="temporizador">⏰ Tempo restante: <span id="tempo">10:00</span></div>
   </div>
-
-  <section id="caixa-surpresa" role="button" tabindex="0" onclick="abrirCaixa()" onkeypress="if(event.key==='Enter') abrirCaixa();" aria-label="Caixa surpresa" style="display:none;margin-top:12px;">
-    <div class="caixa">🎁 Clique aqui!</div>
-  </section>
-
-  <div id="mensagem-desconto" role="status"></div>
-  <div id="temporizador">⏰ Tempo restante: <span id="tempo">10:00</span></div>
 
   <div id="lista-produtos" class="produtos" aria-live="polite"></div>
 
@@ -130,9 +130,9 @@
 <footer>
   <h3>Confiança e Segurança</h3>
   <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;">
-    <div style="text-align:center;color:#ddd;"><i class="fa-solid fa-shield-halved" style="color:#4169E1;font-size:20px"></i><div>Produtos Originais</div></div>
-    <div style="text-align:center;color:#ddd;"><i class="fa-solid fa-child" style="color:#4169E1;font-size:20px"></i><div>+3 anos</div></div>
-    <div style="text-align:center;color:#ddd;"><i class="fa-solid fa-truck" style="color:#4169E1;font-size:20px"></i><div>Entrega em 7 dias</div></div>
+    <div style="text-align:center;color:#ddd;"><i class="fa-solid fa-shield-halved" style="color:#ff9800;font-size:20px"></i><div>Produtos Originais</div></div>
+    <div style="text-align:center;color:#ddd;"><i class="fa-solid fa-child" style="color:#ff9800;font-size:20px"></i><div>+3 anos</div></div>
+    <div style="text-align:center;color:#ddd;"><i class="fa-solid fa-truck" style="color:#ff9800;font-size:20px"></i><div>Entrega em 7 dias</div></div>
   </div>
   <div style="margin-top:12px;color:#aaa;font-size:0.9em;">© 2025 Teens & Eletronicos. Todos os direitos reservados.</div>
 </footer>
@@ -141,8 +141,9 @@
 
 <script>
   let descontoAtivo = false;
-  let tempoRestante = 600; 
+  let tempoRestante = 600;
   let nomeUsuario = "";
+  let cpfUsuario = "";
   let timerInterval = null;
 
   const produtos = [
@@ -163,9 +164,7 @@
     { nome: "Stitch Pelúcia - 30cm", preco: 119.90, imagem: "https://www.americanas.com.br/_next/image?url=https%3A%2F%2Famericanas.vtexassets.com%2Farquivos%2Fids%2F31411475%2FPELUCIADISNEYSOFTSTITCH30CMF01808.jpg%3Fv%3D638836036964770000&w=768&q=90" }
   ];
 
-  function formatMoneyBR(valor) {
-    return 'R$ ' + valor.toFixed(2).replace('.', ',');
-  }
+  function formatMoneyBR(valor) { return 'R$ ' + valor.toFixed(2).replace('.', ','); }
   function showToast(msg) {
     const t = document.getElementById('toast');
     t.innerText = msg;
@@ -173,13 +172,25 @@
     setTimeout(() => t.classList.remove('show'), 2900);
   }
 
+  function validarCPFSimples(text) {
+    const digits = text.replace(/\D/g, '');
+    return digits.length === 11;
+  }
+
   function habilitarCaixa() {
     const elNome = document.getElementById('nome-usuario');
+    const elCpf  = document.getElementById('cpf-usuario');
     const nome = (elNome.value || '').trim();
+    const cpfRaw = (elCpf.value || '').trim();
+    const cpf = cpfRaw.replace(/\D/g, '');
     if (!nome) { alert('Por favor, digite seu nome.'); elNome.focus(); return; }
+    if (!validarCPFSimples(cpfRaw)) { alert('Por favor, digite um CPF válido com 11 dígitos.'); elCpf.focus(); return; }
+
     nomeUsuario = nome;
-    document.querySelector('.intro-section').style.display = 'none';
-    document.getElementById('caixa-surpresa').style.display = 'block';
+    cpfUsuario = cpf;
+
+    document.getElementById('caixa-surpresa').style.display = 'inline-block';
+    showToast(`Olá ${nomeUsuario}, clique na caixa para descobrir seu desconto!`);
   }
 
   function abrirCaixa() {
@@ -187,11 +198,12 @@
     descontoAtivo = true;
     const caixaWrapper = document.getElementById('caixa-surpresa');
     if (caixaWrapper) caixaWrapper.classList.add('spin');
+
     setTimeout(() => {
       if (caixaWrapper) caixaWrapper.style.display = 'none';
       const msgEl = document.getElementById('mensagem-desconto');
       if (msgEl) {
-        msgEl.innerHTML = `🎉 <strong>PARABÉNS ${nomeUsuario.toUpperCase()}!</strong> VOCÊ GANHOU O DESCONTO DE 50%!`;
+        msgEl.innerHTML = `🎉 <strong>PARABÉNS ${nomeUsuario.toUpperCase()}!</strong> VOCÊ GANHOU O DESCONTO DE 50%! <br><small>Válido apenas para <strong>1 brinquedo por CPF</strong>.</small>`;
         msgEl.style.display = 'block';
       }
       document.getElementById('temporizador').style.display = 'block';
@@ -229,10 +241,51 @@
       if (tempoRestante <= 0) {
         clearInterval(timerInterval);
         descontoAtivo = false;
-        document.querySelectorAll('.produto button').forEach(btn => {
-          if (!btn.disabled) { btn.disabled = true; btn.innerText = 'Tempo Esgotado'; }
-        });
+        document.querySelectorAll('.produto button').forEach(btn => { if (!btn.disabled) { btn.disabled = true; btn.innerText = 'Tempo Esgotado'; } });
         const msgEl = document.getElementById('mensagem-desconto');
         if (msgEl) msgEl.innerHTML += `<br><small>❌ O desconto foi encerrado.</small>`;
         showToast('⛔ O desconto expirou!');
-        return
+        return;
+      }
+      const m = String(Math.floor(tempoRestante / 60)).padStart(2,'0');
+      const s = String(tempoRestante % 60).padStart(2,'0');
+      el.textContent = `${m}:${s}`;
+      tempoRestante--;
+    }, 1000);
+  }
+
+  function comprarProduto(index, event) {
+    const produto = produtos[index];
+    const btn = event.target;
+    if (!produto) return;
+    const precoOriginal = produto.preco;
+    const precoComDesconto = +(produto.preco*0.5).toFixed(2);
+    const key = 'desconto_claimed_'+cpfUsuario;
+
+    const jáUsou = !!localStorage.getItem(key);
+
+    if (!jáUsou && descontoAtivo) {
+      localStorage.setItem(key, JSON.stringify({ produto: produto.nome, when: Date.now() }));
+      btn.disabled = true; btn.innerText = 'Comprado!';
+      showToast(`✅ ${produto.nome} comprado com desconto (${formatMoneyBR(precoComDesconto)})!`);
+    } else if (descontoAtivo && jáUsou) {
+      const quer = confirm('Seu CPF já utilizou o desconto. Deseja comprar sem desconto?');
+      if (!quer) { showToast('Compra cancelada.'); return; }
+      btn.disabled = true; btn.innerText = 'Comprado!';
+      showToast(`✅ ${produto.nome} comprado sem desconto (${formatMoneyBR(precoOriginal)})!`);
+    } else {
+      const quer = confirm(`O desconto não está ativo. Comprar ${produto.nome} por ${formatMoneyBR(precoOriginal)}?`);
+      if (!quer) { showToast('Compra cancelada'); return; }
+      btn.disabled = true; btn.innerText = 'Comprado!';
+      showToast(`✅ ${produto.nome} comprado (${formatMoneyBR(precoOriginal)})!`);
+    }
+  }
+
+  document.addEventListener('input', (e) => {
+    if (e.target && e.target.id==='cpf-usuario') {
+      e.target.value = e.target.value.replace(/\D/g,'');
+    }
+  });
+</script>
+</body>
+</html>
