@@ -101,13 +101,6 @@
       <button class="btn" onclick="habilitarCaixa()">Confirmar</button>
     </div>
     <small style="display:block;margin-top:8px;color:#555;">(Ao abrir a caixa, se ganhar o desconto ele será válido apenas para 1 brinquedo por CPF)</small>
-
-    <section id="caixa-surpresa" onclick="abrirCaixa()">
-      <div class="caixa">🎁 Clique aqui!</div>
-    </section>
-
-    <div id="mensagem-desconto"></div>
-    <div id="temporizador">⏰ Tempo restante: <span id="tempo">10:00</span></div>
   </div>
 
   <div id="lista-produtos" class="produtos"></div>
@@ -115,6 +108,12 @@
 
 <footer>
   <h3>Confiança e Segurança</h3>
+  <div style="margin:14px 0;">
+    <a href="#" title="Compra segura" style="display:inline-block"><img src="https://img.icons8.com/color/96/000000/ssl-certificate.png" alt="Selo SSL" width="60" style="margin:0 8px;"></a>
+    <a href="#" title="Política de privacidade" style="display:inline-block"><img src="https://img.icons8.com/color/96/000000/privacy.png" alt="Compra Segura" width="60" style="margin:0 8px;"></a>
+    <a href="#" title="Garantia" style="display:inline-block"><img src="https://img.icons8.com/color/96/000000/guarantee.png" alt="Garantia" width="60" style="margin:0 8px;"></a>
+  </div>
+  <p>🛍️ Loja Teens & Eletrônicos — Desde 2021 no mercado</p>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -176,12 +175,13 @@
     nomeUsuario = nome;
     cpfUsuario = cpf; 
 
+    // Substitui a área de input pela caixa pronta para abrir
     document.querySelector('.intro-section').innerHTML = `
       <div style="background:transparent;padding:8px;">
         <div style="font-weight:bold;margin-bottom:6px;">Olá, ${nomeUsuario} — CPF: ${cpfUsuario}</div>
-        <div id="caixa-surpresa" onclick="abrirCaixa()">
+        <section id="caixa-surpresa" onclick="abrirCaixa()">
           <div class="caixa">🎁 Clique aqui!</div>
-        </div>
+        </section>
         <div id="mensagem-desconto"></div>
         <div id="temporizador" style="display:none">⏰ Tempo restante: <span id="tempo">10:00</span></div>
       </div>
@@ -255,8 +255,6 @@
     const produto = produtos[index];
     const btn = event.target;
     if (!produto) return;
-    const precoOriginal = produto.preco;
-    const precoComDesconto = +(produto.preco * 0.5).toFixed(2);
     const key = 'desconto_claimed_' + cpfUsuario;
     if (localStorage.getItem(key)) { showToast('⚠ Você já utilizou o desconto!'); return; }
     showToast(`✅ Produto ${produto.nome} adicionado ao carrinho com desconto de 50%!`);
